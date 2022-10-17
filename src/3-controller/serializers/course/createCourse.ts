@@ -10,4 +10,8 @@ export class InputCreateCourse extends AbstractSerializer<IInputCreateCourseDto>
   @IsNumber()
   @IsNotEmpty()
   period: number
+
+  @IsNumber()
+  @IsNotEmpty()
+  major_id: number
 }

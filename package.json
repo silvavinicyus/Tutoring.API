@@ -10,6 +10,7 @@
     "test:cov": "npm t -- --maxWorkers=60% --coverage",
     "test:dev": "npm t -- --watch --runInBand --verbose",
     "test:staged": "npm t -- --passWithNoTests --findRelatedTests --listTests",
+    "sql": "sequelize-cli",
     "sls": "cross-env NODE_ENV=test npx serverless",
     "dev": "cross-env NODE_ENV=test npx serverless offline --stage dev"
   },

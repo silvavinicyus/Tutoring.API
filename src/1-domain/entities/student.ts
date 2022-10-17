@@ -8,12 +8,12 @@ export interface IStudentEntity extends ITimestamps {
   name: string
   email: string
   registration_number: string
-  cpf?: string
+  cpf: string
   imgUrl?: string
-  major_id?: number
-  period?: number
-  records_url?: string
-  device_token?: string
+  major_id: number
+  period: number
+  records_url: string
+  device_token: string
 }
 
 export type IInputStundentEntity = Omit<
@@ -23,16 +23,16 @@ export type IInputStundentEntity = Omit<
 
 export class StudentEntity extends AbstractEntity<IStudentEntity> {
   static create(
-    props: Partial<IStudentEntity>,
+    props: IInputStundentEntity,
     currentDate: Date
   ): Right<void, StudentEntity> {
     const studentEntity = new StudentEntity({
       id: undefined,
       uuid: undefined,
+      ...props,
       created_at: currentDate,
       updated_at: currentDate,
-      ...props,
-    } as IStudentEntity)
+    })
 
     return right(studentEntity)
   }
