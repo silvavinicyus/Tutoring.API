@@ -1,4 +1,4 @@
-import { IFooRepository } from '@business/repositories/foo/iFooRepository'
+import { IFooRepository } from '@business/repositories/course/iFooRepository'
 import {
   ILoggerService,
   ILoggerServiceToken

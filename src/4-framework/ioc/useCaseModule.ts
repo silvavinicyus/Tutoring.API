@@ -1,4 +1,4 @@
-import { CreateFooUseCase } from '@business/useCases/foo/createFoo'
+import { CreateFooUseCase } from '@business/useCases/course/createFoo'
 import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { CreateTransactionUseCase } from '@business/useCases/transaction/CreateTransactionUseCase'
 import { ContainerModule, interfaces } from 'inversify'

@@ -1,4 +1,4 @@
-import { IFooRepository, IFooRepositoryToken } from '@business/repositories/foo/iFooRepository'
+import { IFooRepository, IFooRepositoryToken } from '@business/repositories/course/iFooRepository'
 import {
   ITransactionRepository,
   ITransactionRepositoryToken
