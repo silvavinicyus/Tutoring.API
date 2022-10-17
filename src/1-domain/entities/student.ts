@@ -10,10 +10,10 @@ export interface IStudentEntity extends ITimestamps {
   registration_number: string
   cpf?: string
   imgUrl?: string
-  course_id?: number
+  major_id?: number
   period?: number
   records_url?: string
-  device_token: string
+  device_token?: string
 }
 
 export type IInputStundentEntity = Omit<

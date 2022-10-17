@@ -7,9 +7,13 @@ export interface ICourseEntity extends ITimestamps {
   uuid: string
   name: string
   period: number
+  major_id: number
 }
 
-export type IInputCourseEntity = Pick<ICourseEntity, 'name' | 'period'>
+export type IInputCourseEntity = Pick<
+  ICourseEntity,
+  'name' | 'period' | 'major_id'
+>
 
 export class CourseEntity extends AbstractEntity<ICourseEntity> {
   static create(
