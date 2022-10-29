@@ -1,7 +1,7 @@
+import '@framework/ioc/inversify.config'
 import { IInputCreateStudentDto } from '@business/dto/student/createStudentDto'
 import { CreateStudentOperator } from '@controller/operations/student/createStudent'
 import { InputCreateStudent } from '@controller/serializers/student/createStudent'
-import '@framework/ioc/inversify.config'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'

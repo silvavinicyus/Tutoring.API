@@ -1,7 +1,14 @@
-createFoo:
-  handler: ${self:custom.functionsDir}/foo/create.handler
+createStudent:
+  handler: ${self:custom.functionsDir}/student/create.handler
   events:
     - http:
-        path: /foo/create
+        path: /student
         method: post
+        cors: true
+getAllStudents:
+  handler: ${self:custom.functionsDir}/student/getAll.handler
+  events:
+    - http:
+        path: /student
+        method: get
         cors: true
