@@ -4,4 +4,4 @@ import { IError } from '@shared/IError'
 
 export type IInputCreateStudentDto = IInputStundentEntity
 
-export type IOutputCreateStudentDto = Either<IError, IStudentEntity>
+export type IOutputCreateStudentDto = Either<IError, Partial<IStudentEntity>>
