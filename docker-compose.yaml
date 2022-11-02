@@ -9,8 +9,3 @@ services:
       MYSQL_DATABASE: tutoring_database
     ports:
       - 3306:3306
-  elasticmq:
-    image: softwaremill/elasticmq-native
-    ports:
-      - 9324:9324
-      - 9325:9325

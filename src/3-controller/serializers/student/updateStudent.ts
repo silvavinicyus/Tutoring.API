@@ -36,5 +36,5 @@ export class InputUpdateStudent extends AbstractSerializer<IInputUpdateStudentDt
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  imgUrl: string
+  img_url: string
 }

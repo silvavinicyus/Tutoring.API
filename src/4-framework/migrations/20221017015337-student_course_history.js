@@ -19,7 +19,7 @@ module.exports = {
         unique: true,
       },
       course_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',
@@ -27,7 +27,7 @@ module.exports = {
         },
       },
       student_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',

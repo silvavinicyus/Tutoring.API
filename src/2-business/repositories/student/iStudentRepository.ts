@@ -1,4 +1,5 @@
 import { IInputDeleteStudentDto } from '@business/dto/student/deleteStudentDto'
+import { IInputFindStudentByEmailDto } from '@business/dto/student/findStudentByEmailDto'
 import { IInputFindStudentByUuidDto } from '@business/dto/student/findStudentByUuidDto'
 import { ITransaction } from '@business/dto/transaction/create'
 import { IPaginatedResponse } from '@business/dto/useCaseOptions'
@@ -15,6 +16,10 @@ export interface IStudentRepository {
 
   findByUuid(
     props: IInputFindStudentByUuidDto
+  ): Promise<Either<IError, IStudentEntity>>
+
+  findByEmail(
+    props: IInputFindStudentByEmailDto
   ): Promise<Either<IError, IStudentEntity>>
 
   delete(

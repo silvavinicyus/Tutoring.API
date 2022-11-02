@@ -7,10 +7,13 @@ import {
   IStudentRepository,
   IStudentRepositoryToken,
 } from '@business/repositories/student/iStudentRepository'
-import { IUniqueIdentifierServiceToken } from '@business/services/s3Storage/iS3Storage'
-import { IUniqueIdentifierService } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
+import {
+  IUniqueIdentifierService,
+  IUniqueIdentifierServiceToken,
+} from '@business/services/uniqueIdentifier/iUniqueIdentifier'
 import { IInputStundentEntity, StudentEntity } from '@domain/entities/student'
 import { inject, injectable } from 'inversify'
+import { hash } from 'bcrypt'
 import { IAbstractUseCase } from '../abstractUseCase'
 
 @injectable()
@@ -28,7 +31,12 @@ export class CreateStudentUseCase
     props: IInputStundentEntity,
     trx?: ITransaction
   ): Promise<IOutputCreateStudentDto> {
-    const studentEntity = StudentEntity.create(props, new Date())
+    const hashedPassword = await hash(props.password, 8)
+
+    const studentEntity = StudentEntity.create(
+      { ...props, password: hashedPassword },
+      new Date()
+    )
 
     const studentResult = await this.studentRepository.create(
       {

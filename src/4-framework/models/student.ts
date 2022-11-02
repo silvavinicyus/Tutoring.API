@@ -28,11 +28,15 @@ StudentModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     cpf: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    imgUrl: {
+    img_url: {
       type: DataTypes.STRING,
       allowNull: true,
     },

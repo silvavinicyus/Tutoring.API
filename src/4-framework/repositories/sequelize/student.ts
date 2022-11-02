@@ -1,4 +1,5 @@
 import { IInputDeleteStudentDto } from '@business/dto/student/deleteStudentDto'
+import { IInputFindStudentByEmailDto } from '@business/dto/student/findStudentByEmailDto'
 import { IInputFindStudentByUuidDto } from '@business/dto/student/findStudentByUuidDto'
 import { IPaginatedResponse } from '@business/dto/useCaseOptions'
 import { StudentErrors } from '@business/module/errors/student'
@@ -20,6 +21,27 @@ export class StudentRepositorySequelize implements IStudentRepository {
     @inject(ILoggerServiceToken)
     private loggerService: ILoggerService
   ) {}
+
+  async findByEmail(
+    props: IInputFindStudentByEmailDto
+  ): Promise<Either<IError, IStudentEntity>> {
+    try {
+      const student = await StudentModel.findOne({
+        where: {
+          email: props.email,
+        },
+      })
+
+      if (!student) {
+        return left(StudentErrors.notFound())
+      }
+
+      return right(student.get({ plain: true }))
+    } catch (err) {
+      this.loggerService.error(`LOAD ERROR: ${err}`)
+      return left(StudentErrors.loadFailed())
+    }
+  }
 
   async getAll(
     page: number,
@@ -92,7 +114,7 @@ export class StudentRepositorySequelize implements IStudentRepository {
 
       return right(student.get({ plain: true }))
     } catch (err) {
-      this.loggerService.error(`CREATION ERROR: ${err}`)
+      this.loggerService.error(`LOAD ERROR: ${err}`)
       return left(StudentErrors.loadFailed())
     }
   }
@@ -111,7 +133,7 @@ export class StudentRepositorySequelize implements IStudentRepository {
 
       return right(void 0)
     } catch (err) {
-      this.loggerService.error(`CREATION ERROR: ${err}`)
+      this.loggerService.error(`DELETE ERROR: ${err}`)
       return left(StudentErrors.deleteFailed())
     }
   }

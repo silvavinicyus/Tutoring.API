@@ -1,0 +1,7 @@
+authenticate:
+  handler: ${self:custom.functionsDir}/auth/authenticate.handler
+  events:
+    - http:
+        path: /auth
+        method: post
+        cors: true

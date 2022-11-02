@@ -34,12 +34,12 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      imgUrl: {
+      img_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       major_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',
@@ -47,7 +47,7 @@ module.exports = {
         },
       },
       period: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       records_url: {

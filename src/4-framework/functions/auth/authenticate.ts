@@ -1,7 +1,9 @@
 import '@framework/ioc/inversify.config'
-import { IInputCreateStudentDto } from '@business/dto/student/createStudentDto'
-import { CreateStudentOperator } from '@controller/operations/student/createStudent'
-import { InputCreateStudent } from '@controller/serializers/student/createStudent'
+import { AuthenticateOperator } from '@controller/operations/auth/authenticate'
+import {
+  IInputAuthenticateOperator,
+  InputAuthenticate,
+} from '@controller/serializers/auth/authenticate'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'
@@ -9,28 +11,21 @@ import { IHandlerInput, IHandlerResult } from '@framework/utility/types'
 import { IError } from '@shared/IError'
 import { container } from '@shared/ioc/container'
 
-const createStudent = async (event: IHandlerInput): Promise<IHandlerResult> => {
+const authenticate = async (event: IHandlerInput): Promise<IHandlerResult> => {
   try {
-    const requestInput = event.only<IInputCreateStudentDto>([
-      'name',
-      'cpf',
-      'device_token',
+    const requestInput = event.only<IInputAuthenticateOperator>([
       'email',
-      'major_id',
-      'period',
-      'records_url',
-      'registration_number',
       'password',
     ])
 
-    const input = new InputCreateStudent(requestInput)
-    const operator = container.get(CreateStudentOperator)
+    const input = new InputAuthenticate(requestInput)
+    const operator = container.get(AuthenticateOperator)
     const studentResult = await operator.run(input)
     if (studentResult.isLeft()) {
       throw studentResult.value
     }
 
-    return httpResponse('created', studentResult.value)
+    return httpResponse('ok', studentResult.value)
   } catch (err) {
     if (err instanceof IError) {
       return httpResponse(err.statusCode, err.body)
@@ -43,5 +38,4 @@ const createStudent = async (event: IHandlerInput): Promise<IHandlerResult> => {
     )
   }
 }
-
-export const handler = middyfy(createStudent)
+export const handler = middyfy(authenticate)

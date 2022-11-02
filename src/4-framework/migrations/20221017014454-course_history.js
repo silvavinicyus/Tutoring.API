@@ -23,11 +23,11 @@ module.exports = {
         allowNull: false,
       },
       period: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       major_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         references: {
           key: 'id',

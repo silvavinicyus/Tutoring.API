@@ -19,7 +19,7 @@ module.exports = {
         unique: true,
       },
       course_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',
@@ -27,7 +27,7 @@ module.exports = {
         },
       },
       major_id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',
@@ -38,8 +38,8 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      vacancy_number: {
-        type: DataTypes.NUMBER,
+      vacancy_INTEGER: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       with_payment: {
@@ -47,7 +47,7 @@ module.exports = {
         allowNull: false,
       },
       payment_value: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       status: {

@@ -1,3 +1,4 @@
+import '@framework/ioc/inversify.config'
 import { ShowStudentOperator } from '@controller/operations/student/showStudent'
 import { InputShowStudent } from '@controller/serializers/student/showStudent'
 import { LoggerService } from '@framework/services/logger/loggerService'
