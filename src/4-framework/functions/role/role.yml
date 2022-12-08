@@ -1,0 +1,7 @@
+createRole:
+  handler: ${self:custom.functionsDir}/role/create.handler
+  events:
+    - http:
+        path: /role
+        method: post
+        cors: true
