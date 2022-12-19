@@ -2,6 +2,8 @@ authenticate:
   handler: ${self:custom.functionsDir}/auth/authenticate.handler
   events:
     - http:
-        path: /auth
+        path: /login
         method: post
         cors: true
+authorization:
+  handler: ${self:custom.functionsDir}/auth/authorization.handler

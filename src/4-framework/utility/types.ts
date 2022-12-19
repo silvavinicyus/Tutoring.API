@@ -1,5 +1,9 @@
 import { IAuthorizerInformation } from '@business/dto/role/authorize'
-import { APIGatewayProxyEventBase, APIGatewayProxyResult } from 'aws-lambda'
+import {
+  APIGatewayProxyEventBase,
+  APIGatewayProxyResult,
+  APIGatewayTokenAuthorizerEvent,
+} from 'aws-lambda'
 
 export interface ITokenPayload {
   user_id: number
@@ -23,6 +27,8 @@ export interface IHandlerInput
     IRequestMethods {
   body: { [k: string]: string | undefined }
 }
+
+export type IHandlerAuthorization = APIGatewayTokenAuthorizerEvent
 
 export interface IHandlerResult extends Omit<APIGatewayProxyResult, 'body'> {
   body: unknown

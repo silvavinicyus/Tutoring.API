@@ -5,6 +5,8 @@ createStudent:
         path: /student
         method: post
         cors: true
+        authorizer:
+          name: authorization
 getAllStudents:
   handler: ${self:custom.functionsDir}/student/getAll.handler
   events:
