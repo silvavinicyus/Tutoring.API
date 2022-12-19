@@ -24,6 +24,8 @@ module.exports = {
         references: {
           key: 'id',
           model: 'course_history',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       },
       student_id: {
@@ -32,6 +34,8 @@ module.exports = {
         references: {
           key: 'id',
           model: 'student_history',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       },
       status: {

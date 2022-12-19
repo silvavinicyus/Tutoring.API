@@ -44,6 +44,8 @@ module.exports = {
         references: {
           key: 'id',
           model: 'major_history',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       },
       period: {

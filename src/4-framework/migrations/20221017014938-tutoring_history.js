@@ -24,6 +24,8 @@ module.exports = {
         references: {
           key: 'id',
           model: 'course_history',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       },
       major_id: {
@@ -32,6 +34,8 @@ module.exports = {
         references: {
           key: 'id',
           model: 'major_history',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       },
       description: {

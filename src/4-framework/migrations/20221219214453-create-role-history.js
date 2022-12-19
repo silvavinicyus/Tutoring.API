@@ -2,12 +2,13 @@
 
 const { DataTypes } = require('sequelize')
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) {
-    await queryInterface.createTable('course_history', {
+    await queryInterface.createTable('role_history', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         primaryKey: true,
@@ -22,25 +23,11 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      period: {
-        type: DataTypes.INTEGER,
+      description: {
+        type: DataTypes.STRING,
         allowNull: false,
-      },
-      major_id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-        references: {
-          key: 'id',
-          model: 'major_history',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
-        },
       },
       created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
       },
@@ -51,6 +38,6 @@ module.exports = {
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) {
-    await queryInterface.dropTable('course_history')
+    await queryInterface.dropTable('role_history')
   },
 }

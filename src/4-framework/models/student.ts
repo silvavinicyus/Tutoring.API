@@ -1,6 +1,7 @@
 import { IStudentEntity } from '@domain/entities/student'
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../utility/database'
+import { RoleModel } from './role'
 
 export class StudentModel extends Model<IStudentEntity> {}
 
@@ -35,6 +36,7 @@ StudentModel.init(
     cpf: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     img_url: {
       type: DataTypes.STRING,
@@ -77,3 +79,10 @@ StudentModel.init(
     sequelize,
   }
 )
+
+StudentModel.hasOne(RoleModel, {
+  foreignKey: 'role_id',
+  as: 'role',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE',
+})
