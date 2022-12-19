@@ -1,4 +1,4 @@
-import { IAuthorizerInformation } from '@business/dto/role/authorize'
+import { IAuthorizer } from '@business/dto/role/authorize'
 import {
   APIGatewayProxyEventBase,
   APIGatewayProxyResult,
@@ -23,7 +23,7 @@ export interface IRequestMethods {
 }
 
 export interface IHandlerInput
-  extends Omit<APIGatewayProxyEventBase<IAuthorizerInformation>, 'body'>,
+  extends Omit<APIGatewayProxyEventBase<IAuthorizer>, 'body'>,
     IRequestMethods {
   body: { [k: string]: string | undefined }
 }
