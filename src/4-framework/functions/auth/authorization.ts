@@ -63,6 +63,7 @@ const authorization = async (
 
     const operator = new VerifyAuthenticationOperator(useCase)
 
+    // TO-DO: verify why container.get() doesnt work here
     // const operator = container.get(VerifyAuthenticationOperator)
 
     const result = await operator.run({ bearer: input.token })
