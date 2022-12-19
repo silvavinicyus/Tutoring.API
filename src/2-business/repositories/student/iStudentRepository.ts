@@ -7,7 +7,7 @@ import { IStudentEntity } from '@domain/entities/student'
 import { Either } from '@shared/either'
 import { IError } from '@shared/IError'
 
-export const IStudentRepositoryToken = Symbol.for('CourseRepositorySymbol')
+export const IStudentRepositoryToken = Symbol.for('StudentRepositorySymbol')
 export interface IStudentRepository {
   create(
     props: IStudentEntity,

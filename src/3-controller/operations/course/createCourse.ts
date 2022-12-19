@@ -1,5 +1,4 @@
 import { IOutputCreateCourseDto } from '@business/dto/course/createCourseDto'
-import { IAuthorizerInformation } from '@business/dto/role/authorize'
 import { CreateCourseUseCase } from '@business/useCases/course/createCourse'
 import { CreateTransactionUseCase } from '@business/useCases/transaction/CreateTransactionUseCase'
 import { InputCreateCourse } from '@controller/serializers/course/createCourse'
@@ -20,10 +19,7 @@ export class CreateCourseOperator extends AbstractOperator<
     super()
   }
 
-  async run(
-    input: InputCreateCourse,
-    _authorizer: IAuthorizerInformation
-  ): Promise<IOutputCreateCourseDto> {
+  async run(input: InputCreateCourse): Promise<IOutputCreateCourseDto> {
     this.exec(input)
     const transaction = await this.createTransaction.exec()
     if (transaction.isLeft()) {

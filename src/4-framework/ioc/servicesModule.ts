@@ -27,9 +27,7 @@ export const servicesModule = new ContainerModule((bind: interfaces.Bind) => {
     UniqueIdentifierService
   )
   bind(ILoggerServiceToken).to(LoggerService)
-
   bind<IS3StorageService>(IS3StorageServiceToken).to(S3StorageService)
   bind<IDateService>(IDateServiceToken).to(DateService)
-
   bind<IEncryptionService>(IEncryptionServiceToken).to(EncryptionService)
 })

@@ -1,5 +1,11 @@
 import { IInputCreateStudentDto } from '@business/dto/student/createStudentDto'
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator'
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Length,
+} from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
 export class InputCreateStudent extends AbstractSerializer<IInputCreateStudentDto> {
@@ -34,4 +40,9 @@ export class InputCreateStudent extends AbstractSerializer<IInputCreateStudentDt
   @IsString()
   @IsNotEmpty()
   device_token: string
+
+  @IsString()
+  @IsNotEmpty()
+  @Length(8)
+  password: string
 }

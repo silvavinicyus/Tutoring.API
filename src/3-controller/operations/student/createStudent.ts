@@ -20,7 +20,9 @@ export class CreateStudentOperator extends AbstractOperator<
   async run(input: InputCreateStudent): Promise<IOutputCreateStudentDto> {
     this.exec(input)
 
-    const studentResult = await this.createStudent.exec(input)
+    const studentResult = await this.createStudent.exec({
+      ...input,
+    })
 
     if (studentResult.isLeft()) {
       return left(studentResult.value)

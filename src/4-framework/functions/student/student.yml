@@ -14,3 +14,10 @@ getAllStudents:
         path: /student
         method: get
         cors: true
+showStudent:
+  handler: ${self:custom.functionsDir}/student/show.handler
+  events:
+    - http:
+        path: /student/{student_uuid}
+        method: get
+        cors: true

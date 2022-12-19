@@ -34,7 +34,7 @@ const authenticate = async (event: IHandlerInput): Promise<IHandlerResult> => {
     logger.error(err)
     return httpResponse(
       'internalError',
-      'Internal server error in foo creation'
+      'Internal server error while doing the authentication'
     )
   }
 }

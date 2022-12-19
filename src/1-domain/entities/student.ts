@@ -1,20 +1,12 @@
 import { AbstractEntity } from '@domain/abstractEntity'
 import { ITimestamps } from '@domain/timestamps'
 import { right, Right } from '@shared/either'
+import { IUserEntity } from './user'
 
-export interface IStudentEntity extends ITimestamps {
-  id: number
-  uuid: string
-  name: string
-  email: string
-  registration_number: string
-  cpf: string
-  img_url?: string
+export interface IStudentEntity extends IUserEntity, ITimestamps {
   major_id: number
   period: number
   records_url: string
-  device_token: string
-  password: string
 }
 
 export type IInputStundentEntity = Omit<

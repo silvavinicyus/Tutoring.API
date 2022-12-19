@@ -35,7 +35,7 @@ const getAllStudents = async (
     logger.error(err)
     return httpResponse(
       'internalError',
-      'Internal server error in foo creation'
+      'Internal server error while getting all students'
     )
   }
 }

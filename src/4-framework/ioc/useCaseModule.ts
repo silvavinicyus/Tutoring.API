@@ -1,3 +1,4 @@
+import { AuthenticateUseCase } from '@business/useCases/auth/authenticate'
 import { CreateRoleUseCase } from '@business/useCases/role/createRole'
 import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { CreateStudentUseCase } from '@business/useCases/student/createStudent'
@@ -11,12 +12,11 @@ import { ContainerModule, interfaces } from 'inversify'
 export const useCaseModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(VerifyProfileUseCase).toSelf()
   bind(CreateRoleUseCase).toSelf()
-
   bind(CreateTransactionUseCase).toSelf()
-
   bind(CreateStudentUseCase).toSelf()
   bind(FindStudentByUuidUseCase).toSelf()
   bind(DeleteStudentUseCase).toSelf()
   bind(GetAllStudentsUseCase).toSelf()
   bind(UpdateStudentUseCase).toSelf()
+  bind(AuthenticateUseCase).toSelf()
 })
