@@ -8,4 +8,5 @@ export interface IUserEntity {
   img_url?: string
   device_token: string
   password: string
+  role_id: number
 }

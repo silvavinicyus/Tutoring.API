@@ -49,6 +49,18 @@ StudentModel.init(
         key: 'id',
         model: 'major_history',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+    role_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      references: {
+        key: 'id',
+        model: 'major_history',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     period: {
       type: DataTypes.NUMBER,

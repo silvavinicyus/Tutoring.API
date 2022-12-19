@@ -22,6 +22,7 @@ export class CreateStudentOperator extends AbstractOperator<
 
     const studentResult = await this.createStudent.exec({
       ...input,
+      role_id: 3,
     })
 
     if (studentResult.isLeft()) {
