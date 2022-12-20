@@ -38,7 +38,7 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
 
     const authorizer: IAuthorizer = {
       user: user.value,
-      role: '',
+      role: user.value['role']['name'],
     }
 
     return right(authorizer)

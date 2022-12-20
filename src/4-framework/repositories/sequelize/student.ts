@@ -30,6 +30,12 @@ export class StudentRepositorySequelize implements IStudentRepository {
         where: {
           email: props.email,
         },
+        include: [
+          {
+            attributes: ['name'],
+            association: 'role',
+          },
+        ],
       })
 
       if (!student) {
@@ -52,6 +58,12 @@ export class StudentRepositorySequelize implements IStudentRepository {
         limit,
         offset: limit * (page - 1),
         order: [['created_at', 'DESC']],
+        include: [
+          {
+            attributes: ['name'],
+            association: 'role',
+          },
+        ],
       })
 
       const studentItems = studentData.map((item) => item.get({ plain: true }))
@@ -106,6 +118,12 @@ export class StudentRepositorySequelize implements IStudentRepository {
         where: {
           uuid: props.uuid,
         },
+        include: [
+          {
+            attributes: ['name'],
+            association: 'role',
+          },
+        ],
       })
 
       if (!student) {

@@ -93,7 +93,7 @@ StudentModel.init(
 )
 
 StudentModel.hasOne(RoleModel, {
-  foreignKey: 'role_id',
+  foreignKey: 'id',
   as: 'role',
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',

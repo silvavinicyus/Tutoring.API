@@ -12,4 +12,4 @@ export type IInputVerifyProfileDto = {
   user: IUserEntity
 }
 
-export type IOutputVerifyProfileDto = Either<IError, { user_uuid: number }>
+export type IOutputVerifyProfileDto = Either<IError, IAuthorizer>
