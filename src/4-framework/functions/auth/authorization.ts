@@ -4,7 +4,6 @@ import { StudentRepositorySequelize } from '@framework/repositories/sequelize/st
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { middyfy } from '@framework/utility/lambda'
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda'
-import { randomUUID } from 'node:crypto'
 
 export type IHandlerAuthorization = APIGatewayTokenAuthorizerEvent
 
@@ -63,16 +62,28 @@ const authorization = async (
 
     const operator = new VerifyAuthenticationOperator(useCase)
 
-    // TO-DO: verify why container.get() doesnt work here
-    // const operator = container.get(VerifyAuthenticationOperator)
-
     const result = await operator.run({ bearer: input.token })
 
     if (result.isLeft()) {
       throw result.value
     }
 
-    return generatePolicy(randomUUID(), {}, 'Allow', event.methodArn)
+    console.log(
+      `\nGenerating allow policy for: ${
+        result.value.registration_number || result.value.email
+      }\n Arn: ${event.methodArn}`
+    )
+
+    console.log({ ...result.value })
+
+    return generatePolicy(
+      result.value.registration_number || result.value.email,
+      {
+        ...result.value,
+      },
+      'Allow',
+      event.methodArn
+    )
   } catch (err) {
     console.log(err)
     return deny()

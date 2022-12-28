@@ -23,9 +23,14 @@ const createStudent = async (event: IHandlerInput): Promise<IHandlerResult> => {
       'password',
     ])
 
+    console.log(event.requestContext.authorizer)
+
     const input = new InputCreateStudent(requestInput)
     const operator = container.get(CreateStudentOperator)
-    const studentResult = await operator.run(input)
+    const studentResult = await operator.run(
+      input,
+      event.requestContext.authorizer
+    )
     if (studentResult.isLeft()) {
       throw studentResult.value
     }

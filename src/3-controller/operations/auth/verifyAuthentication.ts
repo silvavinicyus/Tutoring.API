@@ -36,11 +36,33 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       return left(user.value)
     }
 
-    const authorizer: IAuthorizer = {
-      user: user.value,
+    const {
+      id,
+      uuid,
+      name,
+      email,
+      registration_number,
+      cpf,
+      img_url,
+      device_token,
+      created_at,
+      updated_at,
+    } = user.value
+
+    const objectReturn = {
+      id,
+      uuid,
+      name,
+      email,
+      registration_number,
+      cpf,
+      img_url: img_url || '',
+      device_token,
+      created_at: created_at ? created_at.toISOString() : '',
+      updated_at: updated_at ? updated_at.toISOString() : '',
       role: user.value['role']['name'],
     }
 
-    return right(authorizer)
+    return right(objectReturn)
   }
 }
