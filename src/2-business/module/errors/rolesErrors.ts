@@ -11,4 +11,15 @@ export class RolesErrors extends IError {
       },
     })
   }
+
+  static creationError(): IError {
+    return new RolesErrors({
+      statusCode: 500,
+      body: {
+        code: 'RE-101',
+        message: 'Error on Role`s creation',
+        shortMessage: 'RoleCreationFailed',
+      },
+    })
+  }
 }

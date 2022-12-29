@@ -59,6 +59,8 @@ plugins:
   - serverless-disable-functions
   - serverless-webpack
   - serverless-offline
+  - serverless-prune-plugin
 
 functions:
-  - "${file(${self:custom.functionsDir}/foo/foo.yml)}"
+  - "${file(${self:custom.functionsDir}/auth/auth.yml)}"
+  - "${file(${self:custom.functionsDir}/student/student.yml)}"

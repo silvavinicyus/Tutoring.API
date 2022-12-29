@@ -1,34 +1,24 @@
+import { IUserEntity } from '@domain/entities/user'
 import { Either } from '@shared/either'
 import { IError } from '@shared/IError'
 
-export interface IAuthorizerInformationFormated
-  extends Omit<IAuthorizerInformation, 'id' | 'collaborator_id'> {
-  id: number
-  collaborator_id: number
+export type IAuthorizer = Pick<
+  IUserEntity,
+  | 'uuid'
+  | 'registration_number'
+  | 'email'
+  | 'device_token'
+  | 'name'
+  | 'img_url'
+  | 'cpf'
+  | 'id'
+> & {
+  role?: string
 }
 
-export interface IAuthorizerInformation {
-  id: string
-  uuid: string
-  email: string
-  document_type: string
-  document_number: string
-  role: string
-  collaborator_id: string
-  collaborator_uuid: string
-  collaborator_full_name: string
-  created_at: string
+export type IInputVerifyProfileDto = {
+  roles: string[]
+  user: IAuthorizer
 }
 
-export interface IInputAuthorizeUseCase {
-  authorizerInformation: IAuthorizerInformation
-  allowedProfiles: string[]
-  lastChance?: (
-    user: Required<IAuthorizerInformationFormated>
-  ) => Promise<boolean>
-}
-
-export type IOutputAuthorizeUseCase = Either<
-  IError,
-  IAuthorizerInformationFormated
->
+export type IOutputVerifyProfileDto = Either<IError, IAuthorizer>
