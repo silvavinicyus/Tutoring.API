@@ -1,9 +1,7 @@
-import '@framework/ioc/inversify.config'
-import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudentByUuid'
 import { VerifyAuthenticationOperator } from '@controller/operations/auth/verifyAuthentication'
-import { StudentRepositorySequelize } from '@framework/repositories/sequelize/student'
-import { LoggerService } from '@framework/services/logger/loggerService'
+import '@framework/ioc/inversify.config'
 import { middyfy } from '@framework/utility/lambda'
+import { container } from '@shared/ioc/container'
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda'
 
 export type IHandlerAuthorization = APIGatewayTokenAuthorizerEvent
@@ -55,13 +53,7 @@ const authorization = async (
       token: event.authorizationToken.split(' ')[1],
     }
 
-    const logger = new LoggerService()
-
-    const repository = new StudentRepositorySequelize(logger)
-
-    const useCase = new FindStudentByUuidUseCase(repository)
-
-    const operator = new VerifyAuthenticationOperator(useCase)
+    const operator = container.get(VerifyAuthenticationOperator)
 
     const result = await operator.run({ bearer: input.token })
 
