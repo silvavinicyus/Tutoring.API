@@ -14,6 +14,8 @@ getAllStudents:
         path: /student
         method: get
         cors: true
+        authorizer:
+          name: authorization
 showStudent:
   handler: ${self:custom.functionsDir}/student/show.handler
   events:
@@ -21,3 +23,5 @@ showStudent:
         path: /student/{student_uuid}
         method: get
         cors: true
+        authorizer:
+          name: authorization

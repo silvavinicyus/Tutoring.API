@@ -74,8 +74,6 @@ const authorization = async (
       }\n Arn: ${event.methodArn}`
     )
 
-    console.log({ ...result.value })
-
     return generatePolicy(
       result.value.registration_number || result.value.email,
       {
