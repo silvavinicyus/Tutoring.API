@@ -1,6 +1,6 @@
+import '@framework/ioc/inversify.config'
 import { ShowMajorOperator } from '@controller/operations/major/showMajor'
 import { InputShowMajor } from '@controller/serializers/major/showMajor'
-import '@framework/ioc/inversify.config'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'

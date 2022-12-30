@@ -1,3 +1,4 @@
+import '@framework/ioc/inversify.config'
 import { IInputCreateRoleDto } from '@business/dto/role/createRole'
 import { CreateRoleOperator } from '@controller/operations/role/createRole'
 import { InputCreateRole } from '@controller/serializers/role/createRole'

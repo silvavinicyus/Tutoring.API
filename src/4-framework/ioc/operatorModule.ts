@@ -10,20 +10,28 @@ import { DeleteStudentOperator } from '@controller/operations/student/deleteStud
 import { GetAllStudentsOperator } from '@controller/operations/student/getAllStudents'
 import { ShowStudentOperator } from '@controller/operations/student/showStudent'
 import { UpdateStudentOperator } from '@controller/operations/student/updateStudent'
+import { CreateTutoringOperator } from '@controller/operations/tutoring/createTutoring'
+import { ShowTutoringOperator } from '@controller/operations/tutoring/showTutoring'
 import { ContainerModule, interfaces } from 'inversify'
 
 export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
+  bind(AuthenticateOperator).toSelf()
+  bind(VerifyAuthenticationOperator).toSelf()
+
+  bind(CreateRoleOperator).toSelf()
+
   bind(CreateStudentOperator).toSelf()
   bind(DeleteStudentOperator).toSelf()
   bind(ShowStudentOperator).toSelf()
   bind(UpdateStudentOperator).toSelf()
   bind(GetAllStudentsOperator).toSelf()
-  bind(CreateRoleOperator).toSelf()
-  bind(VerifyAuthenticationOperator).toSelf()
-  bind(AuthenticateOperator).toSelf()
 
   bind(ShowCourseOperator).toSelf()
   bind(CreateCourseOperator).toSelf()
+
   bind(CreateMajorOperator).toSelf()
   bind(ShowMajorOperator).toSelf()
+
+  bind(CreateTutoringOperator).toSelf()
+  bind(ShowTutoringOperator).toSelf()
 })

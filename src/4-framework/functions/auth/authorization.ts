@@ -1,3 +1,4 @@
+import '@framework/ioc/inversify.config'
 import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudentByUuid'
 import { VerifyAuthenticationOperator } from '@controller/operations/auth/verifyAuthentication'
 import { StudentRepositorySequelize } from '@framework/repositories/sequelize/student'

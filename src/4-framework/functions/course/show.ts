@@ -1,6 +1,6 @@
+import '@framework/ioc/inversify.config'
 import { ShowCourseOperator } from '@controller/operations/course/showCourse'
 import { InputShowCourse } from '@controller/serializers/course/showCourse'
-import '@framework/ioc/inversify.config'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'

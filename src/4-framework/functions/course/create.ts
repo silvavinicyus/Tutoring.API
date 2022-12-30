@@ -1,7 +1,7 @@
+import '@framework/ioc/inversify.config'
 import { IInputCreateCourseDto } from '@business/dto/course/createCourseDto'
 import { CreateCourseOperator } from '@controller/operations/course/createCourse'
 import { InputCreateCourse } from '@controller/serializers/course/createCourse'
-import '@framework/ioc/inversify.config'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'

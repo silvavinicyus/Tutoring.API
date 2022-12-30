@@ -1,0 +1,18 @@
+createTutoring:
+  handler: ${self:custom.functionsDir}/tutoring/create.handler
+  events:
+    - http:
+        path: /tutoring
+        method: post
+        cors: true
+        authorizer:
+          name: authorization
+showTutoring:
+  handler: ${self:custom.functionsDir}/tutoring/show.handler
+  events:
+    - http:
+        path: /tutoring/{tutoring_uuid}
+        method: get
+        cors: true
+        authorizer:
+          name: authorization

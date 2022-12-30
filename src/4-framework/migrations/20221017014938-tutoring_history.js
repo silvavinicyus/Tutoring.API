@@ -42,7 +42,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      vacancy_INTEGER: {
+      vacancy_number: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -13,7 +13,7 @@ import { inject, injectable } from 'inversify'
 import { ITransaction } from './transaction'
 
 @injectable()
-export class MajorREpositorySequelize implements IMajorRepository {
+export class MajorRepositorySequelize implements IMajorRepository {
   constructor(
     @inject(ILoggerServiceToken)
     private loggerService: ILoggerService

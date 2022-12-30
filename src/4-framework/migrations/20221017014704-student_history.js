@@ -25,14 +25,17 @@ module.exports = {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       registration_number: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       cpf: {
         type: DataTypes.STRING,
         allowNull: true,
+        unique: true,
       },
       img_url: {
         type: DataTypes.STRING,
@@ -59,6 +62,7 @@ module.exports = {
       device_token: {
         type: DataTypes.STRING,
         allowNull: true,
+        unique: true,
       },
       created_at: {
         type: DataTypes.DATE,

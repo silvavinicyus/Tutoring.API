@@ -11,6 +11,17 @@ module.exports = {
   ) => {
     const password = await hash('admin_password', 8)
 
+    await queryInterface.bulkInsert('major_history', [
+      {
+        id: 1,
+        uuid: v4(),
+        name: 'Major Teste',
+        shift: 'tarde',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ])
+
     await queryInterface.bulkInsert('student_history', [
       {
         id: 1,
