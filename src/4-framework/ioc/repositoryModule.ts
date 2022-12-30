@@ -3,6 +3,10 @@ import {
   ICourseRepositoryToken,
 } from '@business/repositories/course/iCourseRepository'
 import {
+  IMajorRepository,
+  IMajorRepositoryToken,
+} from '@business/repositories/major/iMajorRepository'
+import {
   IRoleRepository,
   IRoleRepositoryToken,
 } from '@business/repositories/role/iRoleRepository'
@@ -15,6 +19,7 @@ import {
   ITransactionRepositoryToken,
 } from '@business/repositories/transaction/iTransactionRepository'
 import { CourseRepositorySequelize } from '@framework/repositories/sequelize/course'
+import { MajorREpositorySequelize } from '@framework/repositories/sequelize/major'
 import { RoleRepositorySequelize } from '@framework/repositories/sequelize/role'
 import { StudentRepositorySequelize } from '@framework/repositories/sequelize/student'
 import { TransactionRepositorySequelize } from '@framework/repositories/sequelize/transaction'
@@ -29,4 +34,5 @@ export const repositoryModule = new ContainerModule((bind: interfaces.Bind) => {
   )
   bind<IRoleRepository>(IRoleRepositoryToken).to(RoleRepositorySequelize)
   bind<ICourseRepository>(ICourseRepositoryToken).to(CourseRepositorySequelize)
+  bind<IMajorRepository>(IMajorRepositoryToken).to(MajorREpositorySequelize)
 })

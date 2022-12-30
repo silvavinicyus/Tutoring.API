@@ -13,7 +13,6 @@ export class VerifyProfileUseCase
 {
   async exec(input: IInputVerifyProfileDto): Promise<IOutputVerifyProfileDto> {
     const allowed_roles = [...input.roles, 'admin_role']
-    console.log(allowed_roles)
     if (!allowed_roles.includes(input.user.role)) {
       return left(RolesErrors.notAllowed())
     }

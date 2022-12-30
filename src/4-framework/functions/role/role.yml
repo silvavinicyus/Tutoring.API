@@ -5,3 +5,5 @@ createRole:
         path: /role
         method: post
         cors: true
+        authorizer:
+          name: authorization

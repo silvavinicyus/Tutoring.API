@@ -64,3 +64,5 @@ plugins:
 functions:
   - "${file(${self:custom.functionsDir}/auth/auth.yml)}"
   - "${file(${self:custom.functionsDir}/student/student.yml)}"
+  - "${file(${self:custom.functionsDir}/major/major.yml)}"
+  - "${file(${self:custom.functionsDir}/course/course.yml)}"
