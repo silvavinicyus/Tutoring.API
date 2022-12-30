@@ -1,6 +1,7 @@
 import { IOutputCreateCourseDto } from '@business/dto/course/createCourseDto'
 import { IAuthorizer } from '@business/dto/role/authorize'
 import { CreateCourseUseCase } from '@business/useCases/course/createCourse'
+import { FindMajorByUuidUseCase } from '@business/useCases/major/findMajorByUuid'
 import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { CreateTransactionUseCase } from '@business/useCases/transaction/CreateTransactionUseCase'
 import { InputCreateCourse } from '@controller/serializers/course/createCourse'
@@ -18,7 +19,9 @@ export class CreateCourseOperator extends AbstractOperator<
     @inject(CreateCourseUseCase)
     private createCourse: CreateCourseUseCase,
     @inject(VerifyProfileUseCase)
-    private verifyProfile: VerifyProfileUseCase
+    private verifyProfile: VerifyProfileUseCase,
+    @inject(FindMajorByUuidUseCase)
+    private findMajor: FindMajorByUuidUseCase
   ) {
     super()
   }
@@ -35,15 +38,23 @@ export class CreateCourseOperator extends AbstractOperator<
     if (authUserResult.isLeft()) {
       return left(authUserResult.value)
     }
-
     this.exec(input)
+
     const transaction = await this.createTransaction.exec()
     if (transaction.isLeft()) {
       return left(transaction.value)
     }
+
+    const major = await this.findMajor.exec({ uuid: input.major_uuid })
+    if (major.isLeft()) {
+      await transaction.value.rollback()
+      return left(major.value)
+    }
+
     const courseResult = await this.createCourse.exec(
       {
         ...input,
+        major_id: major.value.id,
       },
       transaction.value.trx
     )

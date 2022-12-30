@@ -11,13 +11,10 @@ import { container } from '@shared/ioc/container'
 
 const createCourse = async (event: IHandlerInput): Promise<IHandlerResult> => {
   try {
-    const requestInput = event.only<IInputCreateCourseDto>([
-      'name',
-      'major_id',
-      'period',
-    ])
+    const { major_uuid } = event.pathParameters
+    const requestInput = event.only<IInputCreateCourseDto>(['name', 'period'])
 
-    const input = new InputCreateCourse(requestInput)
+    const input = new InputCreateCourse({ ...requestInput, major_uuid })
     const operator = container.get(CreateCourseOperator)
     const courseResult = await operator.run(
       input,

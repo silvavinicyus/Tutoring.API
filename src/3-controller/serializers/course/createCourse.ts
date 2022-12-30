@@ -1,8 +1,15 @@
 import { IInputCreateCourseDto } from '@business/dto/course/createCourseDto'
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
+import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
-export class InputCreateCourse extends AbstractSerializer<IInputCreateCourseDto> {
+export type IInputCreateCourseDtoOperator = Omit<
+  IInputCreateCourseDto,
+  'major_id'
+> & {
+  major_uuid: string
+}
+
+export class InputCreateCourse extends AbstractSerializer<IInputCreateCourseDtoOperator> {
   @IsString()
   @IsNotEmpty()
   name: string
@@ -11,7 +18,7 @@ export class InputCreateCourse extends AbstractSerializer<IInputCreateCourseDto>
   @IsNotEmpty()
   period: number
 
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  major_id: number
+  major_uuid: string
 }

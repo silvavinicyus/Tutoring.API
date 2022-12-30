@@ -2,7 +2,7 @@ createCourse:
   handler: ${self:custom.functionsDir}/course/create.handler
   events:
     - http:
-        path: /course
+        path: /course/{major_uuid}
         method: post
         cors: true
         authorizer:
@@ -14,3 +14,5 @@ showCourse:
         path: /course/{course_uuid}
         method: get
         cors: true
+        authorizer:
+          name: authorization
