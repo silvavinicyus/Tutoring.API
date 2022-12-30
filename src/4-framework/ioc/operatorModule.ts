@@ -1,5 +1,7 @@
 import { AuthenticateOperator } from '@controller/operations/auth/authenticate'
 import { VerifyAuthenticationOperator } from '@controller/operations/auth/verifyAuthentication'
+import { CreateCourseOperator } from '@controller/operations/course/createCourse'
+import { ShowCourseOperator } from '@controller/operations/course/showCourse'
 import { CreateRoleOperator } from '@controller/operations/role/createRole'
 import { CreateStudentOperator } from '@controller/operations/student/createStudent'
 import { DeleteStudentOperator } from '@controller/operations/student/deleteStudent'
@@ -17,4 +19,7 @@ export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(CreateRoleOperator).toSelf()
   bind(VerifyAuthenticationOperator).toSelf()
   bind(AuthenticateOperator).toSelf()
+
+  bind(ShowCourseOperator).toSelf()
+  bind(CreateCourseOperator).toSelf()
 })

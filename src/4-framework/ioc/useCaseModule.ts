@@ -1,4 +1,6 @@
 import { AuthenticateUseCase } from '@business/useCases/auth/authenticate'
+import { CreateCourseUseCase } from '@business/useCases/course/createCourse'
+import { FindCourseByUuidUseCase } from '@business/useCases/course/findCourseByUuid'
 import { CreateRoleUseCase } from '@business/useCases/role/createRole'
 import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { CreateStudentUseCase } from '@business/useCases/student/createStudent'
@@ -19,4 +21,7 @@ export const useCaseModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(GetAllStudentsUseCase).toSelf()
   bind(UpdateStudentUseCase).toSelf()
   bind(AuthenticateUseCase).toSelf()
+
+  bind(FindCourseByUuidUseCase).toSelf()
+  bind(CreateCourseUseCase).toSelf()
 })

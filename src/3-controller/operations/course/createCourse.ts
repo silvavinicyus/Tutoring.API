@@ -1,5 +1,7 @@
 import { IOutputCreateCourseDto } from '@business/dto/course/createCourseDto'
+import { IAuthorizer } from '@business/dto/role/authorize'
 import { CreateCourseUseCase } from '@business/useCases/course/createCourse'
+import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { CreateTransactionUseCase } from '@business/useCases/transaction/CreateTransactionUseCase'
 import { InputCreateCourse } from '@controller/serializers/course/createCourse'
 import { left } from '@shared/either'
@@ -14,12 +16,26 @@ export class CreateCourseOperator extends AbstractOperator<
     @inject(CreateTransactionUseCase)
     private createTransaction: CreateTransactionUseCase,
     @inject(CreateCourseUseCase)
-    private createCourse: CreateCourseUseCase
+    private createCourse: CreateCourseUseCase,
+    @inject(VerifyProfileUseCase)
+    private verifyProfile: VerifyProfileUseCase
   ) {
     super()
   }
 
-  async run(input: InputCreateCourse): Promise<IOutputCreateCourseDto> {
+  async run(
+    input: InputCreateCourse,
+    authorizer: IAuthorizer
+  ): Promise<IOutputCreateCourseDto> {
+    const authUserResult = await this.verifyProfile.exec({
+      user: authorizer,
+      roles: [],
+    })
+
+    if (authUserResult.isLeft()) {
+      return left(authUserResult.value)
+    }
+
     this.exec(input)
     const transaction = await this.createTransaction.exec()
     if (transaction.isLeft()) {
