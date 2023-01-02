@@ -34,7 +34,6 @@ module.exports = {
         major_id: 1,
         period: 8,
         role_id: 1,
-        records_url: 'record_url',
         registration_number: '18185512',
         created_at: new Date(),
         updated_at: new Date(),

@@ -55,10 +55,6 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      records_url: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       device_token: {
         type: DataTypes.STRING,
         allowNull: true,

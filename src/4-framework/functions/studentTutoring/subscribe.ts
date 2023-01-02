@@ -1,6 +1,9 @@
 import '@framework/ioc/inversify.config'
 import { SubscribeToTutoringOperator } from '@controller/operations/studentTutoring/subscribeToTutoring'
-import { InputSubscribeToTutoring } from '@controller/serializers/tutoringStudent/subscribeToTutoring'
+import {
+  IInputSubscribeToTutoringOperatorDto,
+  InputSubscribeToTutoring,
+} from '@controller/serializers/tutoringStudent/subscribeToTutoring'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'
@@ -14,9 +17,15 @@ const subscribeToTutoring = async (
   try {
     const { tutoring_uuid } = event.pathParameters
 
+    const { records_url } = event.only<IInputSubscribeToTutoringOperatorDto>([
+      'records_url',
+    ])
+
     const input = new InputSubscribeToTutoring({
       tutoring_uuid,
+      records_url,
     })
+
     const operator = container.get(SubscribeToTutoringOperator)
 
     const subscriptionResult = await operator.run(

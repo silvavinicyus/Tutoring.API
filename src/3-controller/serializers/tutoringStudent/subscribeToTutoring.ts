@@ -1,5 +1,5 @@
 import { IInputSubscribeToTutoringDto } from '@business/dto/studentTutoring/subscribeToTutoring'
-import { IsNotEmpty, IsUUID } from 'class-validator'
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
 export type IInputSubscribeToTutoringOperatorDto = Omit<
@@ -13,4 +13,8 @@ export class InputSubscribeToTutoring extends AbstractSerializer<IInputSubscribe
   @IsUUID()
   @IsNotEmpty()
   tutoring_uuid: string
+
+  @IsString()
+  @IsNotEmpty()
+  records_url: string
 }

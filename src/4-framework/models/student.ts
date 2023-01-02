@@ -66,10 +66,6 @@ StudentModel.init(
       type: DataTypes.NUMBER,
       allowNull: true,
     },
-    records_url: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     device_token: {
       type: DataTypes.STRING,
       allowNull: true,

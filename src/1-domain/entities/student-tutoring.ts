@@ -12,6 +12,7 @@ export interface IStudentTutoringEntity {
   uuid: string
   student_id: number
   tutoring_id: number
+  records_url: string
   status: IStatusStudentTutoring
   created_at: Date
 }
