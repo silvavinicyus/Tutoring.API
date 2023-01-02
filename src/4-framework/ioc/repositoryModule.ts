@@ -15,6 +15,10 @@ import {
   IStudentRepositoryToken,
 } from '@business/repositories/student/iStudentRepository'
 import {
+  IStudentTutoringRepository,
+  IStudentTutoringRepositoryToken,
+} from '@business/repositories/studentTutoring/iStudentTutoringRepository'
+import {
   ITransactionRepository,
   ITransactionRepositoryToken,
 } from '@business/repositories/transaction/iTransactionRepository'
@@ -26,6 +30,7 @@ import { CourseRepositorySequelize } from '@framework/repositories/sequelize/cou
 import { MajorRepositorySequelize } from '@framework/repositories/sequelize/major'
 import { RoleRepositorySequelize } from '@framework/repositories/sequelize/role'
 import { StudentRepositorySequelize } from '@framework/repositories/sequelize/student'
+import { StudentTutoringRepositorySequelize } from '@framework/repositories/sequelize/studentTutorings'
 import { TransactionRepositorySequelize } from '@framework/repositories/sequelize/transaction'
 import { TutoringRepositorySequelize } from '@framework/repositories/sequelize/tutoring'
 import { ContainerModule, interfaces } from 'inversify'
@@ -42,5 +47,8 @@ export const repositoryModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IMajorRepository>(IMajorRepositoryToken).to(MajorRepositorySequelize)
   bind<ITutoringRepository>(ITutoringRepositoryToken).to(
     TutoringRepositorySequelize
+  )
+  bind<IStudentTutoringRepository>(IStudentTutoringRepositoryToken).to(
+    StudentTutoringRepositorySequelize
   )
 })

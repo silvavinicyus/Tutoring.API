@@ -2,12 +2,13 @@
 
 const { DataTypes } = require('sequelize')
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) {
-    await queryInterface.createTable('student_course', {
+    await queryInterface.createTable('student_tutoring', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         primaryKey: true,
@@ -18,14 +19,12 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      course_id: {
+      tutoring_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         references: {
           key: 'id',
-          model: 'course_history',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
+          model: 'tutoring_history',
         },
       },
       student_id: {
@@ -34,9 +33,11 @@ module.exports = {
         references: {
           key: 'id',
           model: 'student_history',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
         },
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -49,6 +50,6 @@ module.exports = {
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) {
-    await queryInterface.dropTable('student_course')
+    await queryInterface.dropTable('student_tutoring')
   },
 }

@@ -1,18 +1,11 @@
 import { AbstractEntity } from '@domain/abstractEntity'
 import { right, Right } from '@shared/either'
 
-export enum IStatusStudentCourse {
-  APPROVED = 'aprovado',
-  DISAPPROVED = 'reprovado',
-  ANALISYS = 'analise',
-}
-
 export interface IStudentCourseEntity {
   id: number
   uuid: string
   student_id: number
   course_id: number
-  status: IStatusStudentCourse
   created_at: Date
 }
 

@@ -1,0 +1,9 @@
+subscribe:
+  handler: ${self:custom.functionsDir}/studentTutoring/subscribe.handler
+  events:
+    - http:
+        path: /tutoring/subscribe/{tutoring_uuid}
+        method: post
+        cors: true
+        authorizer:
+          name: authorization

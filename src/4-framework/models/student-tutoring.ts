@@ -1,10 +1,10 @@
-import { IStudentCourseEntity } from '@domain/entities/student-course'
+import { IStudentTutoringEntity } from '@domain/entities/student-tutoring'
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../utility/database'
 
-export class StudentCourseModel extends Model<IStudentCourseEntity> {}
+export class StudentTutoringModel extends Model<IStudentTutoringEntity> {}
 
-StudentCourseModel.init(
+StudentTutoringModel.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -16,12 +16,12 @@ StudentCourseModel.init(
       allowNull: false,
       unique: true,
     },
-    course_id: {
+    tutoring_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
       references: {
         key: 'id',
-        model: 'course_history',
+        model: 'tutoring_history',
       },
     },
     student_id: {
@@ -32,14 +32,18 @@ StudentCourseModel.init(
         model: 'student_history',
       },
     },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
     },
   },
   {
-    tableName: 'student_course',
-    modelName: 'student_course',
+    tableName: 'student_tutoring',
+    modelName: 'student_tutoring',
     timestamps: false,
     underscored: true,
     sequelize,
