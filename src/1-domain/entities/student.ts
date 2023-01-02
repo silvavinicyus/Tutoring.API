@@ -6,7 +6,6 @@ import { IUserEntity } from './user'
 export interface IStudentEntity extends IUserEntity, ITimestamps {
   major_id: number
   period: number
-  records_url: string
 }
 
 export type IInputStundentEntity = Omit<

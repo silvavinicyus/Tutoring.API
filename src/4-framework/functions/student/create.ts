@@ -18,12 +18,9 @@ const createStudent = async (event: IHandlerInput): Promise<IHandlerResult> => {
       'email',
       'major_id',
       'period',
-      'records_url',
       'registration_number',
       'password',
     ])
-
-    console.log(event.requestContext.authorizer)
 
     const input = new InputCreateStudent(requestInput)
     const operator = container.get(CreateStudentOperator)

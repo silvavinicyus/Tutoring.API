@@ -35,10 +35,6 @@ export class InputCreateStudent extends AbstractSerializer<IInputCreateStudentDt
 
   @IsString()
   @IsNotEmpty()
-  records_url: string
-
-  @IsString()
-  @IsNotEmpty()
   device_token: string
 
   @IsString()
