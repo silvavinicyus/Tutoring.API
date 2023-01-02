@@ -5,6 +5,7 @@ import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudent
 import { SubscribeToTutoringUseCase } from '@business/useCases/studentTutoring/subscribeToTutoring'
 import { FindTutoringByUuidUseCase } from '@business/useCases/tutoring/showTutoring'
 import { InputSubscribeToTutoring } from '@controller/serializers/tutoringStudent/subscribeToTutoring'
+import { IStatusStudentTutoring } from '@domain/entities/student-tutoring'
 import { STUDENT } from '@shared/constants'
 import { left } from '@shared/either'
 import { inject, injectable } from 'inversify'
@@ -54,7 +55,7 @@ export class SubscribeToTutoringOperator extends AbstractOperator<
     }
 
     const studentTutoring = await this.subscribeToTutoring.exec({
-      ...input,
+      status: IStatusStudentTutoring.ANALISYS,
       student_id: student.value.id,
       tutoring_id: tutoring.value.id,
     })
