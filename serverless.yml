@@ -67,3 +67,4 @@ functions:
   - "${file(${self:custom.functionsDir}/major/major.yml)}"
   - "${file(${self:custom.functionsDir}/course/course.yml)}"
   - "${file(${self:custom.functionsDir}/tutoring/tutoring.yml)}"
+  - "${file(${self:custom.functionsDir}/StudentTutoring/StudentTutoring.yml)}"
