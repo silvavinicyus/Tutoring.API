@@ -22,4 +22,15 @@ export class TutoringErrors extends IError {
       },
     })
   }
+
+  static impossibleToSubscribe(): IError {
+    return new TutoringErrors({
+      statusCode: 500,
+      body: {
+        code: 'TT-701',
+        message: 'Tutoring already closed',
+        shortMessage: 'TutoringAlreadyClosed',
+      },
+    })
+  }
 }

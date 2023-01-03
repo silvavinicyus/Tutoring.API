@@ -11,6 +11,7 @@ import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudent
 import { GetAllStudentsUseCase } from '@business/useCases/student/getAllStudents'
 import { UpdateStudentUseCase } from '@business/useCases/student/updateStudent'
 import { SubscribeToTutoringUseCase } from '@business/useCases/studentTutoring/subscribeToTutoring'
+import { UnsubscribeToTutoringUseCase } from '@business/useCases/studentTutoring/unsubscribeToTutoring'
 import { CreateTransactionUseCase } from '@business/useCases/transaction/CreateTransactionUseCase'
 import { CreateTutoringUseCase } from '@business/useCases/tutoring/createTutoring'
 import { FindTutoringByUuidUseCase } from '@business/useCases/tutoring/showTutoring'
@@ -41,4 +42,5 @@ export const useCaseModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(FindTutoringByUuidUseCase).toSelf()
 
   bind(SubscribeToTutoringUseCase).toSelf()
+  bind(UnsubscribeToTutoringUseCase).toSelf()
 })

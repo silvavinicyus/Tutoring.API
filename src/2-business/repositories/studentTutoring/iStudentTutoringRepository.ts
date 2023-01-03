@@ -1,3 +1,4 @@
+import { IInputUnsubscribeToTutoringDto } from '@business/dto/studentTutoring/unsubscribeToTutoring'
 import { ITransaction } from '@business/dto/transaction/create'
 import { IStudentTutoringEntity } from '@domain/entities/student-tutoring'
 import { Either } from '@shared/either'
@@ -11,4 +12,9 @@ export interface IStudentTutoringRepository {
     props: IStudentTutoringEntity,
     trx?: ITransaction
   ): Promise<Either<IError, IStudentTutoringEntity>>
+
+  unsubscribe(
+    props: IInputUnsubscribeToTutoringDto,
+    trx?: ITransaction
+  ): Promise<Either<IError, void>>
 }

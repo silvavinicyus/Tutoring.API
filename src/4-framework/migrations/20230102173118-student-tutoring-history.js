@@ -39,6 +39,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      records_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,

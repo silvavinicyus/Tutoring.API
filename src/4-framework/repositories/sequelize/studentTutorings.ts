@@ -1,3 +1,4 @@
+import { IInputUnsubscribeToTutoringDto } from '@business/dto/studentTutoring/unsubscribeToTutoring'
 import { StudentTutoringErrors } from '@business/module/errors/studentTutoringErrors'
 import { IStudentTutoringRepository } from '@business/repositories/studentTutoring/iStudentTutoringRepository'
 import {
@@ -19,6 +20,31 @@ export class StudentTutoringRepositorySequelize
     @inject(ILoggerServiceToken)
     private loggerService: ILoggerService
   ) {}
+
+  async unsubscribe(
+    props: IInputUnsubscribeToTutoringDto,
+    trx?: ITransaction
+  ): Promise<Either<IError, void>> {
+    try {
+      const studentTutoring = await StudentTutoringModel.findOne({
+        where: {
+          student_id: props.student_id,
+          tutoring_id: props.tutoring_id,
+        },
+      })
+
+      if (!studentTutoring) {
+        return left(StudentTutoringErrors.notFound())
+      }
+
+      await studentTutoring.destroy({ transaction: trx })
+
+      return right(void 0)
+    } catch (err) {
+      this.loggerService.error(`ERR: ${err}`)
+      return left(StudentTutoringErrors.unsubscriptionError())
+    }
+  }
 
   async subscribe(
     props: IStudentTutoringEntity,

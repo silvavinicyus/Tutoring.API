@@ -130,6 +130,8 @@ export class StudentRepositorySequelize implements IStudentRepository {
         return left(StudentErrors.notFound())
       }
 
+      console.log({ role: student.get({ plain: true })['role'] })
+
       return right(student.get({ plain: true }))
     } catch (err) {
       this.loggerService.error(`LOAD ERROR: ${err}`)

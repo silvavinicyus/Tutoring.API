@@ -1,24 +1,25 @@
 import { IAuthorizer } from '@business/dto/role/authorize'
-import { IOutputSubscribeToTutoringDto } from '@business/dto/studentTutoring/subscribeToTutoring'
+import { IOutputUnsubscribeToTutoringDto } from '@business/dto/studentTutoring/unsubscribeToTutoring'
+import { TutoringErrors } from '@business/module/errors/tutoringErrors'
 import { VerifyProfileUseCase } from '@business/useCases/role/verifyProfile'
 import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudentByUuid'
-import { SubscribeToTutoringUseCase } from '@business/useCases/studentTutoring/subscribeToTutoring'
+import { UnsubscribeToTutoringUseCase } from '@business/useCases/studentTutoring/unsubscribeToTutoring'
 import { FindTutoringByUuidUseCase } from '@business/useCases/tutoring/showTutoring'
-import { InputSubscribeToTutoring } from '@controller/serializers/tutoringStudent/subscribeToTutoring'
-import { IStatusStudentTutoring } from '@domain/entities/student-tutoring'
+import { InputUnsubscribeToTutoring } from '@controller/serializers/tutoringStudent/unsubscribeToTutoring'
+import { IStatusTutoring } from '@domain/entities/tutoring'
 import { STUDENT } from '@shared/constants'
 import { left } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'
 
 @injectable()
-export class SubscribeToTutoringOperator extends AbstractOperator<
-  InputSubscribeToTutoring,
-  IOutputSubscribeToTutoringDto
+export class UnsubscribeToTutoringOperator extends AbstractOperator<
+  InputUnsubscribeToTutoring,
+  IOutputUnsubscribeToTutoringDto
 > {
   constructor(
-    @inject(SubscribeToTutoringUseCase)
-    private subscribeToTutoring: SubscribeToTutoringUseCase,
+    @inject(UnsubscribeToTutoringUseCase)
+    private unsubscribeToTutoring: UnsubscribeToTutoringUseCase,
     @inject(VerifyProfileUseCase)
     private verifyProfile: VerifyProfileUseCase,
     @inject(FindStudentByUuidUseCase)
@@ -30,9 +31,9 @@ export class SubscribeToTutoringOperator extends AbstractOperator<
   }
 
   async run(
-    input: InputSubscribeToTutoring,
+    input: InputUnsubscribeToTutoring,
     authorizer: IAuthorizer
-  ): Promise<IOutputSubscribeToTutoringDto> {
+  ): Promise<IOutputUnsubscribeToTutoringDto> {
     const authUserResult = await this.verifyProfile.exec({
       user: authorizer,
       roles: [STUDENT],
@@ -54,16 +55,19 @@ export class SubscribeToTutoringOperator extends AbstractOperator<
       return left(tutoring.value)
     }
 
-    const studentTutoring = await this.subscribeToTutoring.exec({
-      status: IStatusStudentTutoring.ANALISYS,
-      student_id: student.value.id,
-      tutoring_id: tutoring.value.id,
-      records_url: input.records_url,
-    })
-    if (studentTutoring.isLeft()) {
-      return left(studentTutoring.value)
+    if (tutoring.value.status === IStatusTutoring.CLOSED) {
+      return left(TutoringErrors.impossibleToSubscribe())
     }
 
-    return studentTutoring
+    const studentTutoringResult = await this.unsubscribeToTutoring.exec({
+      student_id: student.value.id,
+      tutoring_id: tutoring.value.id,
+    })
+
+    if (studentTutoringResult.isLeft()) {
+      return left(studentTutoringResult.value)
+    }
+
+    return studentTutoringResult
   }
 }

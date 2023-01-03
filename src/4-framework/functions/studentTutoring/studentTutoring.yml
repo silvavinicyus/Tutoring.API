@@ -7,3 +7,12 @@ subscribe:
         cors: true
         authorizer:
           name: authorization
+unsubscribe:
+  handler: ${self:custom.functionsDir}/studentTutoring/unsubscribe.handler
+  events:
+    - http:
+        path: /tutoring/unsubscribe/{tutoring_uuid}
+        method: delete
+        cors: true
+        authorizer:
+          name: authorization

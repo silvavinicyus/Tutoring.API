@@ -11,6 +11,7 @@ import { GetAllStudentsOperator } from '@controller/operations/student/getAllStu
 import { ShowStudentOperator } from '@controller/operations/student/showStudent'
 import { UpdateStudentOperator } from '@controller/operations/student/updateStudent'
 import { SubscribeToTutoringOperator } from '@controller/operations/studentTutoring/subscribeToTutoring'
+import { UnsubscribeToTutoringOperator } from '@controller/operations/studentTutoring/unsubscribeToTutoring'
 import { CreateTutoringOperator } from '@controller/operations/tutoring/createTutoring'
 import { ShowTutoringOperator } from '@controller/operations/tutoring/showTutoring'
 import { ContainerModule, interfaces } from 'inversify'
@@ -37,4 +38,5 @@ export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(ShowTutoringOperator).toSelf()
 
   bind(SubscribeToTutoringOperator).toSelf()
+  bind(UnsubscribeToTutoringOperator).toSelf()
 })

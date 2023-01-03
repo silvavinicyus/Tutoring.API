@@ -32,6 +32,10 @@ StudentTutoringModel.init(
         model: 'student_history',
       },
     },
+    records_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     status: {
       type: DataTypes.STRING,
       allowNull: false,

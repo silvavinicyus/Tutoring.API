@@ -26,6 +26,8 @@ const subscribeToTutoring = async (
       records_url,
     })
 
+    console.log({ input })
+
     const operator = container.get(SubscribeToTutoringOperator)
 
     const subscriptionResult = await operator.run(

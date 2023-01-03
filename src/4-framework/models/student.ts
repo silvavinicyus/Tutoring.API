@@ -57,7 +57,7 @@ StudentModel.init(
       allowNull: false,
       references: {
         key: 'id',
-        model: 'major_history',
+        model: 'role_history',
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
@@ -88,8 +88,8 @@ StudentModel.init(
   }
 )
 
-StudentModel.hasOne(RoleModel, {
-  foreignKey: 'id',
+StudentModel.belongsTo(RoleModel, {
+  foreignKey: 'role_id',
   as: 'role',
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',
