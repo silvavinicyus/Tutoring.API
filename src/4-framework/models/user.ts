@@ -1,11 +1,10 @@
-import { ICourseEntity } from '@domain/entities/course'
+import { IUserEntity } from '@domain/entities/user'
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../utility/database'
-import { TutoringModel } from './tutoring'
 
-export class CourseModel extends Model<ICourseEntity> {}
+export class UserModel extends Model<IUserEntity> {}
 
-CourseModel.init(
+UserModel.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -21,16 +20,24 @@ CourseModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    period: {
-      type: DataTypes.NUMBER,
+    email: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    major_id: {
-      type: DataTypes.NUMBER,
+    cpf: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {
         key: 'id',
-        model: 'major_history',
+        model: 'roles',
       },
     },
     created_at: {
@@ -43,22 +50,10 @@ CourseModel.init(
     },
   },
   {
-    tableName: 'course_history',
-    modelName: 'course_history',
+    tableName: 'users',
+    modelName: 'users',
     timestamps: false,
     underscored: true,
     sequelize,
   }
 )
-
-CourseModel.hasMany(TutoringModel, {
-  foreignKey: 'course_id',
-  as: 'tutoring',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-})
-
-TutoringModel.belongsTo(CourseModel, {
-  foreignKey: 'id',
-  as: 'course',
-})

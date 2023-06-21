@@ -6,13 +6,19 @@ import {
   ITransactionRepository,
   ITransactionRepositoryToken,
 } from '@business/repositories/transaction/iTransactionRepository'
-import { RoleRepositorySequelize } from '@framework/repositories/sequelize/role'
-import { TransactionRepositorySequelize } from '@framework/repositories/sequelize/transaction'
+import {
+  IUserRepository,
+  IUserRepositoryToken,
+} from '@business/repositories/user/iUserRepository'
+import { RoleRepository } from '@framework/repositories/role'
+import { TransactionRepositorySequelize } from '@framework/repositories/transaction'
+import { UserRepository } from '@framework/repositories/user'
 import { ContainerModule, interfaces } from 'inversify'
 
 export const repositoryModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<ITransactionRepository>(ITransactionRepositoryToken).to(
     TransactionRepositorySequelize
   )
-  bind<IRoleRepository>(IRoleRepositoryToken).to(RoleRepositorySequelize)
+  bind<IRoleRepository>(IRoleRepositoryToken).to(RoleRepository)
+  bind<IUserRepository>(IUserRepositoryToken).to(UserRepository)
 })
