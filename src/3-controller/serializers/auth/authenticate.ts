@@ -2,10 +2,7 @@ import { IInputAuthenticateDto } from '@business/dto/auth/authenticateDto'
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
-export type IInputAuthenticateOperator = Omit<
-  IInputAuthenticateDto,
-  'student'
-> & {
+export type IInputAuthenticateOperator = Omit<IInputAuthenticateDto, 'user'> & {
   email: string
 }
 

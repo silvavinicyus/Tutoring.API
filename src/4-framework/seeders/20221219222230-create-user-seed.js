@@ -11,20 +11,16 @@ module.exports = {
   ) => {
     const password = await hash('admin_password', 8)
 
-    await queryInterface.bulkInsert('student_history', [
+    await queryInterface.bulkInsert('users', [
       {
         id: 1,
         uuid: v4(),
-        name: 'Vinicyus Silva',
-        cpf: '12248498977',
-        device_token: 'device_token1',
-        email: 'vinicyus@gmail.com',
+        name: 'admin',
+        email: 'admin@admin.com',
         password,
-        major_id: 1,
-        period: 8,
+        phone: '82981818181',
+        birthdate: new Date('2000-07-25'),
         role_id: 1,
-        records_url: 'record_url',
-        registration_number: '18185512',
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -35,6 +31,6 @@ module.exports = {
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) => {
-    await queryInterface.bulkDelete('student_history', { id: 1 })
+    await queryInterface.bulkDelete('users', { id: 1 })
   },
 }

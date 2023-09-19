@@ -1,7 +1,7 @@
 import { IOutputAuthenticateDto } from '@business/dto/auth/authenticateDto'
 import { AuthErrors } from '@business/module/errors/authErrors'
 import { AuthenticateUseCase } from '@business/useCases/auth/authenticate'
-import { FindStudentByEmailUseCase } from '@business/useCases/student/findStudentByEmail'
+import { FindByUserUseCase } from '@business/useCases/user/findByUser'
 import { InputAuthenticate } from '@controller/serializers/auth/authenticate'
 import { left } from '@shared/either'
 import { inject, injectable } from 'inversify'
@@ -13,8 +13,8 @@ export class AuthenticateOperator extends AbstractOperator<
   IOutputAuthenticateDto
 > {
   constructor(
-    @inject(FindStudentByEmailUseCase)
-    private findStudent: FindStudentByEmailUseCase,
+    @inject(FindByUserUseCase)
+    private findUser: FindByUserUseCase,
     @inject(AuthenticateUseCase)
     private authenticate: AuthenticateUseCase
   ) {
@@ -24,14 +24,21 @@ export class AuthenticateOperator extends AbstractOperator<
   async run(input: InputAuthenticate): Promise<IOutputAuthenticateDto> {
     this.exec(input)
 
-    const student = await this.findStudent.exec({ email: input.email })
+    const user = await this.findUser.exec({
+      where: [
+        {
+          column: 'email',
+          value: input.email,
+        },
+      ],
+    })
 
-    if (student.isLeft()) {
+    if (user.isLeft()) {
       return left(AuthErrors.notAllowed())
     }
 
     const response = await this.authenticate.exec({
-      student: student.value,
+      user: user.value,
       password: input.password,
     })
 

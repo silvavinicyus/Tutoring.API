@@ -3,7 +3,7 @@
 const { v4 } = require('uuid')
 
 const STUDENT = 'student_role'
-const TEACHER = 'teacher_role'
+const TUTOR = 'tutor_role'
 const ADMIN = 'admin_role'
 
 /** @type {import('sequelize-cli').Migration} */
@@ -12,7 +12,7 @@ module.exports = {
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) => {
-    await queryInterface.bulkInsert('role_history', [
+    await queryInterface.bulkInsert('roles', [
       {
         id: 1,
         uuid: v4(),
@@ -23,8 +23,8 @@ module.exports = {
       {
         id: 2,
         uuid: v4(),
-        name: TEACHER,
-        description: 'Teacher role',
+        name: TUTOR,
+        description: 'Tutor role',
         created_at: new Date(),
       },
       {
@@ -41,8 +41,8 @@ module.exports = {
     /** @type {import('sequelize').QueryInterface} */ queryInterface,
     _Sequelize
   ) => {
-    await queryInterface.bulkDelete('role_history', { name: ADMIN })
-    await queryInterface.bulkDelete('role_history', { name: TEACHER })
-    await queryInterface.bulkDelete('role_history', { name: STUDENT })
+    await queryInterface.bulkDelete('roles', { name: ADMIN })
+    await queryInterface.bulkDelete('roles', { name: TUTOR })
+    await queryInterface.bulkDelete('roles', { name: STUDENT })
   },
 }

@@ -1,7 +1,7 @@
 export const roles = {
   STUDENT: 'student_role',
-  TEACHER: 'teacher_role',
+  TUTOR: 'tutor_role',
   ADMIN: 'admin_role',
 }
 
-export const { STUDENT, TEACHER, ADMIN } = roles
+export const { STUDENT, TUTOR, ADMIN } = roles

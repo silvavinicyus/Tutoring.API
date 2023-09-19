@@ -31,8 +31,8 @@ RoleModel.init(
     },
   },
   {
-    tableName: 'role_history',
-    modelName: 'role_history',
+    tableName: 'roles',
+    modelName: 'roles',
     timestamps: false,
     underscored: true,
     sequelize,

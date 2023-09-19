@@ -1,4 +1,4 @@
-service: serverless-template
+service: tutoring-auth
 
 frameworkVersion: "3"
 
@@ -56,13 +56,11 @@ custom:
         - mysql2
 
 plugins:
-  - serverless-disable-functions
-  - serverless-webpack
+  - serverless-disable-functions    
   - serverless-offline
+  - serverless-webpack
   - serverless-prune-plugin
 
 functions:
   - "${file(${self:custom.functionsDir}/auth/auth.yml)}"
-  - "${file(${self:custom.functionsDir}/student/student.yml)}"
-  - "${file(${self:custom.functionsDir}/major/major.yml)}"
-  - "${file(${self:custom.functionsDir}/course/course.yml)}"
+  - "${file(${self:custom.functionsDir}/user/user.yml)}"  

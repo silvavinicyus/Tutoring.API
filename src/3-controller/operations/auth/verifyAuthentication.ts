@@ -1,5 +1,5 @@
 import { IAuthorizer } from '@business/dto/role/authorize'
-import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudentByUuid'
+import { FindByUserUseCase } from '@business/useCases/user/findByUser'
 import { Either, left, right } from '@shared/either'
 import { IError } from '@shared/IError'
 import { inject, injectable } from 'inversify'
@@ -18,8 +18,8 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
   IOutputVerifyAuthentication
 > {
   constructor(
-    @inject(FindStudentByUuidUseCase)
-    private findStudent: FindStudentByUuidUseCase
+    @inject(FindByUserUseCase)
+    private findUser: FindByUserUseCase
   ) {
     super()
   }
@@ -30,37 +30,39 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       process.env.SECRET_TOKEN
     ) as IPayload
 
-    const user = await this.findStudent.exec({ uuid: user_uuid })
+    const user = await this.findUser.exec({
+      where: [
+        {
+          column: 'uuid',
+          value: user_uuid,
+        },
+      ],
+      relations: [
+        {
+          tableName: 'role',
+          currentTableColumn: 'role_id',
+          foreignJoinColumn: 'id',
+        },
+      ],
+    })
 
     if (user.isLeft()) {
       return left(user.value)
     }
 
-    const {
-      id,
-      uuid,
-      name,
-      email,
-      registration_number,
-      cpf,
-      img_url,
-      device_token,
-      created_at,
-      updated_at,
-    } = user.value
+    const { id, uuid, name, email, created_at, updated_at, birthdate, phone } =
+      user.value
 
     const objectReturn = {
       id,
       uuid,
       name,
       email,
-      registration_number,
-      cpf,
-      img_url: img_url || '',
-      device_token,
+      birthdate,
+      phone,
       created_at: created_at ? created_at.toISOString() : '',
       updated_at: updated_at ? updated_at.toISOString() : '',
-      role: user.value['role']['name'],
+      role: user.value.role.name,
     }
 
     return right(objectReturn)

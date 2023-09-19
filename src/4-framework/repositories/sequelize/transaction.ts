@@ -9,7 +9,7 @@ import { Transaction } from 'sequelize/types'
 export type ITransaction = Transaction
 
 @injectable()
-export class TransactionRepositorySequelize implements ITransactionRepository {
+export class TransactionRepository implements ITransactionRepository {
   async create(): Promise<ICreateTransaction> {
     const trx = await sequelize.transaction()
     return {

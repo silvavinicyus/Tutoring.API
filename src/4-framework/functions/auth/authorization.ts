@@ -1,8 +1,7 @@
-import { FindStudentByUuidUseCase } from '@business/useCases/student/findStudentByUuid'
+import '@framework/ioc/inversify.config'
 import { VerifyAuthenticationOperator } from '@controller/operations/auth/verifyAuthentication'
-import { StudentRepositorySequelize } from '@framework/repositories/sequelize/student'
-import { LoggerService } from '@framework/services/logger/loggerService'
 import { middyfy } from '@framework/utility/lambda'
+import { container } from '@shared/ioc/container'
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda'
 
 export type IHandlerAuthorization = APIGatewayTokenAuthorizerEvent
@@ -45,6 +44,7 @@ export const generatePolicy = (
 const authorization = async (
   event: IHandlerAuthorization
 ): Promise<IPolicy> => {
+  console.log('CHegou no authorization')
   const deny = () => generatePolicy('MS_AUTH', {}, 'Deny', event.methodArn)
 
   if (event.type !== 'TOKEN') return deny()
@@ -54,13 +54,7 @@ const authorization = async (
       token: event.authorizationToken.split(' ')[1],
     }
 
-    const logger = new LoggerService()
-
-    const repository = new StudentRepositorySequelize(logger)
-
-    const useCase = new FindStudentByUuidUseCase(repository)
-
-    const operator = new VerifyAuthenticationOperator(useCase)
+    const operator = container.get(VerifyAuthenticationOperator)
 
     const result = await operator.run({ bearer: input.token })
 
@@ -69,13 +63,11 @@ const authorization = async (
     }
 
     console.log(
-      `\nGenerating allow policy for: ${
-        result.value.registration_number || result.value.email
-      }\n Arn: ${event.methodArn}`
+      `\nGenerating allow policy for: ${result.value.email}\n Arn: ${event.methodArn}`
     )
 
     return generatePolicy(
-      result.value.registration_number || result.value.email,
+      result.value.email,
       {
         ...result.value,
       },

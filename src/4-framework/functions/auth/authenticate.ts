@@ -20,12 +20,12 @@ const authenticate = async (event: IHandlerInput): Promise<IHandlerResult> => {
 
     const input = new InputAuthenticate(requestInput)
     const operator = container.get(AuthenticateOperator)
-    const studentResult = await operator.run(input)
-    if (studentResult.isLeft()) {
-      throw studentResult.value
+    const userResult = await operator.run(input)
+    if (userResult.isLeft()) {
+      throw userResult.value
     }
 
-    return httpResponse('ok', studentResult.value)
+    return httpResponse('ok', userResult.value)
   } catch (err) {
     if (err instanceof IError) {
       return httpResponse(err.statusCode, err.body)

@@ -12,7 +12,7 @@ import { inject, injectable } from 'inversify'
 import { ITransaction } from './transaction'
 
 @injectable()
-export class RoleRepositorySequelize implements IRoleRepository {
+export class RoleRepository implements IRoleRepository {
   constructor(
     @inject(ILoggerServiceToken)
     private loggerService: ILoggerService

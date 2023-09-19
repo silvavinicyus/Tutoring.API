@@ -1,14 +1,14 @@
-import { IStudentEntity } from '@domain/entities/student'
+import { IUserEntity } from '@domain/entities/user'
 import { Either } from '@shared/either'
 import { IError } from '@shared/IError'
 
 type IAuthenticateOutput = {
-  student: Partial<IStudentEntity>
+  user: Partial<IUserEntity>
   token: string
 }
 
 export type IInputAuthenticateDto = {
-  student: IStudentEntity
+  user: IUserEntity
   password: string
 }
 
