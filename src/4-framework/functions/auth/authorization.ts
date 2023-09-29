@@ -44,7 +44,6 @@ export const generatePolicy = (
 const authorization = async (
   event: IHandlerAuthorization
 ): Promise<IPolicy> => {
-  console.log('CHegou no authorization')
   const deny = () => generatePolicy('MS_AUTH', {}, 'Deny', event.methodArn)
 
   if (event.type !== 'TOKEN') return deny()

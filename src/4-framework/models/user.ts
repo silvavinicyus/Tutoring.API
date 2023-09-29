@@ -41,6 +41,14 @@ UserModel.init(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
+    user_real_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    user_real_uuid: {
+      type: DataTypes.STRING(40),
+      allowNull: false,
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,

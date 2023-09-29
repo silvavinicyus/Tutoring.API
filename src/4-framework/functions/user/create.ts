@@ -1,47 +1,35 @@
 import '@framework/ioc/inversify.config'
-import { IInputCreateUserDto } from '@business/dto/user/create'
 import { CreateUserOperator } from '@controller/operations/user/create'
 import { InputCreateUser } from '@controller/serializers/user/createUser'
-import { LoggerService } from '@framework/services/logger/loggerService'
-import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'
-import { IHandlerInput, IHandlerResult } from '@framework/utility/types'
-import { IError } from '@shared/IError'
 import { container } from '@shared/ioc/container'
+import { SNSEvent } from 'aws-lambda'
 
-const createUser = async (event: IHandlerInput): Promise<IHandlerResult> => {
+const createUser = async (event: SNSEvent): Promise<void> => {
   try {
-    const requestInput = event.only<IInputCreateUserDto>([
-      'name',
-      'email',
-      'password',
-      'birthdate',
-      'phone',
-    ])
+    const message = JSON.parse(event.Records[0].Sns.Message)
+    console.log(message)
 
-    console.log(event.requestContext.authorizer)
-
-    const input = new InputCreateUser(requestInput)
+    const input = new InputCreateUser({
+      birthdate: message.birthdate,
+      email: message.email,
+      name: message.name,
+      password: message.password,
+      phone: message.phone,
+      user_real_id: message.id,
+      user_real_uuid: message.uuid,
+    })
     const operator = container.get(CreateUserOperator)
-    const userResult = await operator.run(
-      input,
-      event.requestContext.authorizer
-    )
+    const userResult = await operator.run(input)
+
     if (userResult.isLeft()) {
       throw userResult.value
     }
 
-    return httpResponse('created', userResult.value)
+    console.info('User was succesfully created')
   } catch (err) {
-    if (err instanceof IError) {
-      return httpResponse(err.statusCode, err.body)
-    }
-    const logger = new LoggerService()
-    logger.error(err)
-    return httpResponse(
-      'internalError',
-      'Internal server error in user creation'
-    )
+    console.info('Failed to create user')
+    console.log(err)
   }
 }
 

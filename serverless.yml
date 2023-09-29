@@ -15,19 +15,20 @@ provider:
   apiGateway:
     binaryMediaTypes:
       - "*/*"
-  environment:
-ENVIRONMENT_REPLACE:
+  environment:  
+    SNS_CREATE_USER: ${env:SNS_CREATE_USER}
 
   iam:
     role:
       statements:
-        - Effect: "Allow"
+        - Effect: 'Allow'
           Action:
-            - "s3:*"
-            - "lambda:*"
-            - "sqs:*"
-            - "sns:*"
-          Resource: "*"
+            - 's3:*'
+            - 'lambda:*'
+            - 'sqs:*'
+            - 'sns:*'
+            - 'execute-api:*'
+          Resource: '*'
 
 custom:
   prune:
@@ -45,7 +46,7 @@ custom:
   functionsDir: src/4-framework/functions
   serverless-offline:
     httpPort: 4000
-    lambdaPort: 4001
+    lambdaPort: 4001  
   webpack:
     webpackConfig: "webpack.config.js"
     packager: "npm"
@@ -54,13 +55,17 @@ custom:
     includeModules:
       forceInclude:
         - mysql2
+  serverless-offline-sns:
+    port: 3999
+    debug: true    
 
 plugins:
-  - serverless-disable-functions    
+  - serverless-disable-functions
+  - serverless-offline-sns
   - serverless-offline
   - serverless-webpack
   - serverless-prune-plugin
-
+  
 functions:
   - "${file(${self:custom.functionsDir}/auth/auth.yml)}"
   - "${file(${self:custom.functionsDir}/user/user.yml)}"  

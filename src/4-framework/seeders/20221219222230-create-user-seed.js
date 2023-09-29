@@ -21,6 +21,8 @@ module.exports = {
         phone: '82981818181',
         birthdate: new Date('2000-07-25'),
         role_id: 1,
+        user_real_id: 1,
+        user_real_uuid: 'ff508caf-f9f2-4490-8976-542bb6e4f9cd',
         created_at: new Date(),
         updated_at: new Date(),
       },

@@ -16,14 +16,26 @@ export interface IUserEntity extends ITimestamps, Partial<IUserRelations> {
   phone: string
   password: string
   role_id: number
+  user_real_id: number
+  user_real_uuid: string
 }
 
 export type IInputUserEntity = Pick<
   IUserEntity,
-  'name' | 'email' | 'birthdate' | 'phone' | 'password' | 'role_id'
+  | 'name'
+  | 'email'
+  | 'birthdate'
+  | 'phone'
+  | 'password'
+  | 'role_id'
+  | 'user_real_id'
+  | 'user_real_uuid'
 >
 
-export type UserEntityKeys = Pick<IUserEntity, 'name' | 'email' | 'uuid' | 'id'>
+export type UserEntityKeys = Pick<
+  IUserEntity,
+  'name' | 'email' | 'uuid' | 'id' | 'user_real_id' | 'user_real_uuid'
+>
 
 export class UserEntity extends AbstractEntity<IUserEntity> {
   static create(

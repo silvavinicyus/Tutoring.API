@@ -1,9 +1,6 @@
 createUser:
   handler: ${self:custom.functionsDir}/user/create.handler
   events:
-    - http:
-        path: /user
-        method: post
-        cors: true
-        authorizer:
-          name: authorization
+    - sns:
+        arn: ${self:provider.environment.SNS_CREATE_USER}
+        topicName: tutoring-org-${self:provider.stage}-create-user
