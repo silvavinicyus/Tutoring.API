@@ -31,6 +31,13 @@ export class AuthenticateOperator extends AbstractOperator<
           value: input.email,
         },
       ],
+      relations: [
+        {
+          tableName: 'image',
+          foreignJoinColumn: 'id',
+          currentTableColumn: 'image_id',
+        },
+      ],
     })
 
     if (user.isLeft()) {

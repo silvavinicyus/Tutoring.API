@@ -2,6 +2,7 @@ import { IUserEntity } from '@domain/entities/user'
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../utility/database'
 import { RoleModel } from './role'
+import { FileModel } from './file'
 
 export class UserModel extends Model<IUserEntity> {}
 
@@ -41,6 +42,10 @@ UserModel.init(
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
+    image_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true,
+    },
     user_real_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -66,9 +71,18 @@ UserModel.init(
     sequelize,
   }
 )
+
 UserModel.hasOne(RoleModel, {
   foreignKey: 'id',
   as: 'role',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE',
+})
+
+UserModel.hasOne(FileModel, {
+  foreignKey: 'id',
+  sourceKey: 'image_id',
+  as: 'image',
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',
 })

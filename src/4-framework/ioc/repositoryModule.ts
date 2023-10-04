@@ -1,4 +1,8 @@
 import {
+  IFileRepository,
+  IFileRepositoryToken,
+} from '@business/repositories/file/iFileRepository'
+import {
   IRoleRepository,
   IRoleRepositoryToken,
 } from '@business/repositories/role/iRoleRepository'
@@ -10,6 +14,7 @@ import {
   IUserRepository,
   IUserRepositoryToken,
 } from '@business/repositories/user/iUserRepository'
+import { FileRepository } from '@framework/repositories/sequelize/file'
 import { RoleRepository } from '@framework/repositories/sequelize/role'
 import { TransactionRepository } from '@framework/repositories/sequelize/transaction'
 import { UserRepository } from '@framework/repositories/sequelize/user'
@@ -22,4 +27,6 @@ export const repositoryModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IRoleRepository>(IRoleRepositoryToken).to(RoleRepository)
 
   bind<IUserRepository>(IUserRepositoryToken).to(UserRepository)
+
+  bind<IFileRepository>(IFileRepositoryToken).to(FileRepository)
 })

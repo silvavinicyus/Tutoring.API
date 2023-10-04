@@ -10,6 +10,7 @@ export class UserMap {
       email: user.name,
       phone: user.phone,
       birthdate: user.birthdate,
+      image: user.image,
     })
 
     return userWithoutPassword

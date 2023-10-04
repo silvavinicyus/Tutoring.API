@@ -2,16 +2,16 @@ import { IUserEntity } from '@domain/entities/user'
 import { Either } from '@shared/either'
 import { IError } from '@shared/IError'
 
-export type IAuthorizer = Pick<
+export type IAuthorizerInformation = Pick<
   IUserEntity,
-  'uuid' | 'email' | 'name' | 'id' | 'phone' | 'birthdate'
+  'email' | 'name' | 'phone' | 'birthdate' | 'user_real_id' | 'user_real_uuid'
 > & {
   role?: string
 }
 
 export type IInputVerifyProfileDto = {
   roles: string[]
-  user: IAuthorizer
+  user: IAuthorizerInformation
 }
 
-export type IOutputVerifyProfileDto = Either<IError, IAuthorizer>
+export type IOutputVerifyProfileDto = Either<IError, IAuthorizerInformation>

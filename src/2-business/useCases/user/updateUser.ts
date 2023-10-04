@@ -6,6 +6,7 @@ import { ITransaction } from '@business/dto/transaction/create'
 import {
   IUserRepository,
   IUserRepositoryToken,
+  updateWhereUser,
 } from '@business/repositories/user/iUserRepository'
 import { UserEntity } from '@domain/entities/user'
 import { inject, injectable } from 'inversify'
@@ -30,13 +31,17 @@ export class UpdateUserUseCase
 
   async exec(
     props: IInputUpdateUserDto,
+    updateWhere: updateWhereUser,
     trx?: ITransaction
   ): Promise<IOutputUpdateUserDto> {
     try {
       const userEntity = UserEntity.update(props, new Date())
 
       const userResult = await this.userRepository.update(
-        userEntity.value.export(),
+        {
+          newData: userEntity.value.export(),
+          updateWhere,
+        },
         trx
       )
 

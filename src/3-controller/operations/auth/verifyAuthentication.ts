@@ -1,4 +1,4 @@
-import { IAuthorizer } from '@business/dto/role/authorize'
+import { IAuthorizerInformation } from '@business/dto/role/authorize'
 import { FindByUserUseCase } from '@business/useCases/user/findByUser'
 import { Either, left, right } from '@shared/either'
 import { IError } from '@shared/IError'
@@ -6,7 +6,7 @@ import { inject, injectable } from 'inversify'
 import { verify } from 'jsonwebtoken'
 import { AbstractOperator } from '../abstractOperator'
 
-type IOutputVerifyAuthentication = Either<IError, IAuthorizer>
+type IOutputVerifyAuthentication = Either<IError, IAuthorizerInformation>
 
 interface IPayload {
   sub: string
@@ -54,16 +54,18 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       user.value
 
     const objectReturn = {
-      id,
-      uuid,
       name,
       email,
-      birthdate,
+      birthdate: birthdate.toISOString(),
       phone,
       created_at: created_at ? created_at.toISOString() : '',
       updated_at: updated_at ? updated_at.toISOString() : '',
       role: user.value.role.name,
+      user_real_id: id,
+      user_real_uuid: uuid,
     }
+
+    console.log(objectReturn)
 
     return right(objectReturn)
   }

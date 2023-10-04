@@ -2,9 +2,11 @@ import { AbstractEntity } from '@domain/abstractEntity'
 import { ITimestamps } from '@domain/timestamps'
 import { right, Right } from '@shared/either'
 import { IRoleEntity } from './role'
+import { IFileEntity } from './file'
 
 export interface IUserRelations {
   role: IRoleEntity
+  image: IFileEntity
 }
 
 export interface IUserEntity extends ITimestamps, Partial<IUserRelations> {
@@ -16,6 +18,7 @@ export interface IUserEntity extends ITimestamps, Partial<IUserRelations> {
   phone: string
   password: string
   role_id: number
+  image_id?: number
   user_real_id: number
   user_real_uuid: string
 }
