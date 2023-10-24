@@ -59,7 +59,8 @@ custom:
       noFrozenLockfile: true
     includeModules:
       forceInclude:
-        - mysql2
+        - pg
+        - pg-hstore
   serverless-offline-sns:
     port: 3999
     debug: true    
@@ -74,3 +75,5 @@ plugins:
 functions:
   - "${file(${self:custom.functionsDir}/auth/auth.yml)}"
   - "${file(${self:custom.functionsDir}/user/user.yml)}"  
+  - "${file(${self:custom.functionsDir}/permission/permission.yml)}"  
+  - "${file(${self:custom.functionsDir}/role/role.yml)}"  

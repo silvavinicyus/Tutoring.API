@@ -1,7 +1,12 @@
 import { AbstractEntity } from '@domain/abstractEntity'
 import { right, Right } from '@shared/either'
+import { IPermissionEntity } from './permission'
 
-export interface IRoleEntity {
+interface IRoleRelations {
+  permissions: IPermissionEntity[]
+}
+
+export interface IRoleEntity extends Partial<IRoleRelations> {
   id: number
   uuid: string
   name: string

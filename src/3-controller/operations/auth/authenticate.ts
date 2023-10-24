@@ -37,6 +37,18 @@ export class AuthenticateOperator extends AbstractOperator<
           foreignJoinColumn: 'id',
           currentTableColumn: 'image_id',
         },
+        {
+          tableName: 'role',
+          currentTableColumn: 'role_id',
+          foreignJoinColumn: 'id',
+          relations: [
+            {
+              tableName: 'permissions',
+              currentTableColumn: 'id',
+              foreignJoinColumn: 'role_id',
+            },
+          ],
+        },
       ],
     })
 

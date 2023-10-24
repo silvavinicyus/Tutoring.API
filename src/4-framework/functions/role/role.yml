@@ -2,7 +2,16 @@ createRole:
   handler: ${self:custom.functionsDir}/role/create.handler
   events:
     - http:
-        path: /role
+        path: /roles
+        method: post
+        cors: true
+        authorizer:
+          name: authorization
+addPermissionsToRole:
+  handler: ${self:custom.functionsDir}/role/addPermissionsToRole.handler
+  events:
+    - http:
+        path: /roles/permissions
         method: post
         cors: true
         authorizer:

@@ -3,6 +3,8 @@ import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '../utility/database'
 import { RoleModel } from './role'
 import { FileModel } from './file'
+import { PermissionModel } from './permission'
+import { RolePermissionModel } from './rolePermission'
 
 export class UserModel extends Model<IUserEntity> {}
 
@@ -85,4 +87,16 @@ UserModel.hasOne(FileModel, {
   as: 'image',
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',
+})
+
+PermissionModel.belongsToMany(RoleModel, {
+  through: RolePermissionModel,
+  as: 'roles',
+  foreignKey: 'permission_id',
+})
+
+RoleModel.belongsToMany(PermissionModel, {
+  through: RolePermissionModel,
+  as: 'permissions',
+  foreignKey: 'role_id',
 })

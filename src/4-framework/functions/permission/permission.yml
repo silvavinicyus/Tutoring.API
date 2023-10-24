@@ -1,0 +1,27 @@
+createPermission:
+  handler: ${self:custom.functionsDir}/permission/create.handler
+  events:
+    - http:
+        path: /permissions
+        method: post
+        cors: true
+        authorizer:
+          name: authorization
+deletePermission:
+  handler: ${self:custom.functionsDir}/permission/delete.handler
+  events:
+    - http:
+        path: /permissions
+        method: delete
+        cors: true
+        authorizer:
+          name: authorization
+updatePermission:
+  handler: ${self:custom.functionsDir}/permission/update.handler
+  events:
+    - http:
+        path: /permissions/{uuid}
+        method: put
+        cors: true
+        authorizer:
+          name: authorization

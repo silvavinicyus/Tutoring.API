@@ -4,13 +4,15 @@ import { IError } from '@shared/IError'
 
 export type IAuthorizerInformation = Pick<
   IUserEntity,
-  'email' | 'name' | 'phone' | 'birthdate' | 'user_real_id' | 'user_real_uuid'
+  'email' | 'name' | 'phone' | 'user_real_id' | 'user_real_uuid'
 > & {
   role?: string
+  permissions: string
+  birthdate: string
 }
 
 export type IInputVerifyProfileDto = {
-  roles: string[]
+  permissions: string[]
   user: IAuthorizerInformation
 }
 

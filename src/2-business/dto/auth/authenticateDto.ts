@@ -3,7 +3,9 @@ import { Either } from '@shared/either'
 import { IError } from '@shared/IError'
 
 type IAuthenticateOutput = {
-  user: Partial<IUserEntity>
+  user: Partial<IUserEntity> & {
+    permissions?: string
+  }
   token: string
 }
 

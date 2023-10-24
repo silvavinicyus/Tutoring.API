@@ -42,6 +42,13 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
           tableName: 'role',
           currentTableColumn: 'role_id',
           foreignJoinColumn: 'id',
+          relations: [
+            {
+              tableName: 'permissions',
+              currentTableColumn: 'id',
+              foreignJoinColumn: 'role_id',
+            },
+          ],
         },
       ],
     })
@@ -50,8 +57,21 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       return left(user.value)
     }
 
-    const { id, uuid, name, email, created_at, updated_at, birthdate, phone } =
-      user.value
+    const {
+      id,
+      uuid,
+      name,
+      email,
+      created_at,
+      updated_at,
+      birthdate,
+      phone,
+      role,
+    } = user.value
+
+    const getPermissions = role.permissions
+      .map((permission) => permission.name)
+      .join(',')
 
     const objectReturn = {
       name,
@@ -60,9 +80,10 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       phone,
       created_at: created_at ? created_at.toISOString() : '',
       updated_at: updated_at ? updated_at.toISOString() : '',
-      role: user.value.role.name,
+      role: role.name,
       user_real_id: id,
       user_real_uuid: uuid,
+      permissions: getPermissions.toString(),
     }
 
     console.log(objectReturn)

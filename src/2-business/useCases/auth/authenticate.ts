@@ -27,7 +27,12 @@ export class AuthenticateUseCase
     })
 
     return right({
-      user: UserMap.toDtoWithoutPassword(props.user),
+      user: {
+        ...UserMap.toDtoWithoutPassword(props.user),
+        permissions: props.user.role.permissions
+          .map((permission) => permission.name)
+          .join(','),
+      },
       token,
     })
   }
