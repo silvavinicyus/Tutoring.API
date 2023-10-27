@@ -24,7 +24,7 @@ const updatePermission = async (
     const input = new InputUpdatePermission({ ...requestInput, uuid })
 
     const operator = container.get(UpdatePermissionOperator)
-    const result = await operator.run(input)
+    const result = await operator.run(input, event.requestContext.authorizer)
 
     if (result.isLeft()) {
       throw result.value

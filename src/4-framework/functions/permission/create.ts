@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import '@framework/ioc/inversify.config'
 import { CreateManyPermissionsOperator } from '@controller/operations/permission/createMany'
 import {
   InputCreateManyPermissions,
   InputCreatePermission,
 } from '@controller/serializers/permission/create'
-import '@framework/ioc/inversify.config'
 import { LoggerService } from '@framework/services/logger/loggerService'
 import { httpResponse } from '@framework/utility/httpResponse'
 import { middyfy } from '@framework/utility/lambda'
@@ -19,7 +19,7 @@ const createPermission = async (
     const body = event.body as any
 
     const input = new InputCreateManyPermissions({
-      permissions: body.map(
+      permissions: body.permissions.map(
         (permission) =>
           new InputCreatePermission({
             name: permission.name,
@@ -29,7 +29,10 @@ const createPermission = async (
       ),
     })
     const operator = container.get(CreateManyPermissionsOperator)
-    const permissionResult = await operator.run(input)
+    const permissionResult = await operator.run(
+      input,
+      event.requestContext.authorizer
+    )
 
     if (permissionResult.isLeft()) {
       throw permissionResult.value

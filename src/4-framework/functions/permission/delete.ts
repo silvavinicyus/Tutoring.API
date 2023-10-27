@@ -17,7 +17,10 @@ const deletePermission = async (
     })
 
     const operator = container.get(DeleteManyPermissionOperator)
-    const permissionResult = await operator.run(input)
+    const permissionResult = await operator.run(
+      input,
+      event.requestContext.authorizer
+    )
 
     if (permissionResult.isLeft()) {
       throw permissionResult.value
