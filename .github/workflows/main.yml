@@ -1,4 +1,4 @@
-name: Deploy MS Org Serverless API
+name: Deploy MS Auth Serverless API
 
 on:
   push:
