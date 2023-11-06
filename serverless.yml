@@ -1,4 +1,4 @@
-service: tutoring-auth
+service: tutoring-ms-auth
 
 frameworkVersion: "3"
 

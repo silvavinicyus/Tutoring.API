@@ -1,0 +1,42 @@
+name: Deploy MS Org Serverless API
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build:
+    name: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        node-version: [14.x]
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Create env file local"
+        id: env
+        run: |
+          chmod a+x ./.github/workflows/envs.sh
+          ./.github/workflows/envs.sh ${{ secrets.SECRETS_URL }}
+        shell: bash
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+              npm i      
+              npm i serverless     
+
+      - name: Setup AWS Credentials
+        run: npx sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}      
+        
+      - name: Run migrations
+        run: npm run sql db:migrate
+
+      - name: Deploy with stage=staging
+        run: npx sls deploy -s staging --verbose
