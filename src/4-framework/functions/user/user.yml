@@ -2,7 +2,8 @@ createUser:
   handler: ${self:custom.functionsDir}/user/create.handler
   events:
     - sns:
-        arn: ${self:provider.environment.SNS_CREATE_USER}
+        arn:  
+          Ref: CreateUserSNSTopic
         topicName: tutoring-org-${self:provider.stage}-create-user
 uploadImage:
   handler: ${self:custom.functionsDir}/user/uploadImage.handler
@@ -11,4 +12,4 @@ uploadImage:
         path: /users/image
         method: patch
         cors: true
-        authorizer: authorization        
+        authorizer: authorization
