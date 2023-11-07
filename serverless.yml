@@ -77,3 +77,10 @@ functions:
   - "${file(${self:custom.functionsDir}/user/user.yml)}"  
   - "${file(${self:custom.functionsDir}/permission/permission.yml)}"  
   - "${file(${self:custom.functionsDir}/role/role.yml)}"  
+
+resources:
+  Resources:     
+    CreateUserSNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: tutoring-org-${self:provider.stage}-create-user
