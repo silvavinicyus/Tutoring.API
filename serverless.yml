@@ -16,13 +16,8 @@ provider:
     binaryMediaTypes:
       - "*/*"
   environment:  
-    SNS_CREATE_USER: ${env:SNS_CREATE_USER}
-    STORAGE_FOLDER: ${env:STORAGE_FOLDER}
-    S3_BUCKET: ${env:S3_BUCKET}
-    S3_REGION: ${env:S3_REGION}
-    PRIVATE_S3_BUCKET: ${env:PRIVATE_S3_BUCKET}
-    PRIVATE_S3_REGION: ${env:PRIVATE_S3_REGION}
-
+  
+ENVIRONMENT_REPLACE:
   iam:
     role:
       statements:
