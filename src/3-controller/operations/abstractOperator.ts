@@ -31,6 +31,14 @@ export abstract class AbstractOperator<I, O> {
           ),
         }))
 
+        details.forEach((detail) => {
+          console.log(detail.property)
+          console.log(detail.value)
+          detail.errors.forEach((error) => {
+            console.log(error)
+          })
+        })
+
         throw validationError(details)
       }
       throw error
