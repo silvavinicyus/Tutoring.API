@@ -11,7 +11,7 @@ const createUser = async (event: SNSEvent): Promise<void> => {
     console.log(message)
 
     const input = new InputCreateUser({
-      birthdate: message.birthdate,
+      birthdate: new Date(message.birthdate),
       email: message.email,
       name: message.name,
       password: message.password,
@@ -19,6 +19,9 @@ const createUser = async (event: SNSEvent): Promise<void> => {
       user_real_id: message.id,
       user_real_uuid: message.uuid,
     })
+
+    console.log(input)
+
     const operator = container.get(CreateUserOperator)
     const userResult = await operator.run(input)
 
