@@ -1,16 +1,15 @@
 import { IAuthorizerInformation } from '@business/dto/role/authorize'
+import {
+  ITokenService,
+  ITokenServiceToken,
+} from '@business/services/token/iTokenService'
 import { FindByUserUseCase } from '@business/useCases/user/findByUser'
-import { Either, left, right } from '@shared/either'
 import { IError } from '@shared/IError'
+import { Either, left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
-import { verify } from 'jsonwebtoken'
 import { AbstractOperator } from '../abstractOperator'
 
 type IOutputVerifyAuthentication = Either<IError, IAuthorizerInformation>
-
-interface IPayload {
-  sub: string
-}
 
 @injectable()
 export class VerifyAuthenticationOperator extends AbstractOperator<
@@ -19,16 +18,18 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
 > {
   constructor(
     @inject(FindByUserUseCase)
-    private findUser: FindByUserUseCase
+    private findUser: FindByUserUseCase,
+    @inject(ITokenServiceToken)
+    private tokenService: ITokenService
   ) {
     super()
   }
 
   async run(input: { bearer: string }): Promise<IOutputVerifyAuthentication> {
-    const { sub: user_uuid } = verify(
-      input.bearer,
-      process.env.SECRET_TOKEN
-    ) as IPayload
+    const { user_uuid } = this.tokenService.verify({
+      bearer: input.bearer,
+      secret_token: process.env.SECRET_TOKEN,
+    })
 
     const user = await this.findUser.exec({
       where: [
@@ -85,8 +86,6 @@ export class VerifyAuthenticationOperator extends AbstractOperator<
       user_real_uuid: uuid,
       permissions: getPermissions.toString(),
     }
-
-    console.log(objectReturn)
 
     return right(objectReturn)
   }

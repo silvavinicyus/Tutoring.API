@@ -1,5 +1,5 @@
 import '@framework/ioc/inversify.config'
-import { CreateUserOperator } from '@controller/operations/user/create'
+import { CreateOrUpdateUserOperator } from '@controller/operations/user/createOrUpdate'
 import { InputCreateUser } from '@controller/serializers/user/createUser'
 import { middyfy } from '@framework/utility/lambda'
 import { container } from '@shared/ioc/container'
@@ -22,7 +22,7 @@ const createUser = async (event: SNSEvent): Promise<void> => {
 
     console.log(input)
 
-    const operator = container.get(CreateUserOperator)
+    const operator = container.get(CreateOrUpdateUserOperator)
     const userResult = await operator.run(input)
 
     if (userResult.isLeft()) {
