@@ -1,4 +1,6 @@
 import { IUserEntity } from '@domain/entities/user'
+import { fakeRoleEntity } from './fakeRoleEntity'
+import { fakePermissionEntity } from './fakePermissionEntity'
 
 export const fakeUserEntity: IUserEntity = {
   id: 1,
@@ -14,4 +16,8 @@ export const fakeUserEntity: IUserEntity = {
   image_id: null,
   created_at: new Date(),
   updated_at: new Date(),
+  role: {
+    ...fakeRoleEntity,
+    permissions: [fakePermissionEntity, fakePermissionEntity],
+  },
 }
