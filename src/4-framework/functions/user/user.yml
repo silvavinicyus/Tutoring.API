@@ -1,5 +1,5 @@
 createUser:
-  handler: ${self:custom.functionsDir}/user/create.handler
+  handler: ${self:custom.functionsDir}/user/createOrUpdate.handler
   events:
     - sns:
         arn:  
