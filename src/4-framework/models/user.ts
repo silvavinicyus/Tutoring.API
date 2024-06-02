@@ -76,6 +76,7 @@ UserModel.init(
 
 UserModel.hasOne(RoleModel, {
   foreignKey: 'id',
+  sourceKey: 'role_id',
   as: 'role',
   onUpdate: 'CASCADE',
   onDelete: 'CASCADE',
