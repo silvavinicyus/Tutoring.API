@@ -6,7 +6,7 @@ export type IInputAuthenticateOperator = Omit<IInputAuthenticateDto, 'user'> & {
   email: string
 }
 
-export class InputAuthenticate extends AbstractSerializer<IInputAuthenticateDto> {
+export class InputAuthenticate extends AbstractSerializer<IInputAuthenticateOperator> {
   @IsEmail()
   @IsNotEmpty()
   email: string

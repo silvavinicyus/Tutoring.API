@@ -3,6 +3,6 @@ import { IsArray } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
 export class InputDeletePermission extends AbstractSerializer<IInputDeleteManyPermissionsDto> {
-  @IsArray({ each: true })
+  @IsArray()
   ids: number[]
 }

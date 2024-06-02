@@ -5,7 +5,7 @@ import { DeleteManyPermissionOperator } from '@controller/operations/permission/
 import { UpdatePermissionOperator } from '@controller/operations/permission/update'
 import { AddPermissionsToRoleOperator } from '@controller/operations/role/addPermissionsToRole'
 import { CreateRoleOperator } from '@controller/operations/role/createRole'
-import { CreateUserOperator } from '@controller/operations/user/create'
+import { CreateOrUpdateUserOperator } from '@controller/operations/user/createOrUpdate'
 import { UploadUserImageOperator } from '@controller/operations/user/uploadImage'
 import { ContainerModule, interfaces } from 'inversify'
 
@@ -14,7 +14,7 @@ export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(VerifyAuthenticationOperator).toSelf()
   bind(AuthenticateOperator).toSelf()
 
-  bind(CreateUserOperator).toSelf()
+  bind(CreateOrUpdateUserOperator).toSelf()
   bind(UploadUserImageOperator).toSelf()
 
   bind(CreateManyPermissionsOperator).toSelf()

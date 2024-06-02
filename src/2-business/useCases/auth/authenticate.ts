@@ -3,10 +3,13 @@ import {
   IOutputAuthenticateDto,
 } from '@business/dto/auth/authenticateDto'
 import { AuthErrors } from '@business/module/errors/authErrors'
+import {
+  IEncryptionService,
+  IEncryptionServiceToken,
+} from '@business/services/encryption/iEncryption'
 import { UserMap } from '@business/utils/userMapper'
 import { left, right } from '@shared/either'
-import { compare } from 'bcrypt'
-import { injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 import { sign } from 'jsonwebtoken'
 import { IAbstractUseCase } from '../abstractUseCase'
 
@@ -14,8 +17,16 @@ import { IAbstractUseCase } from '../abstractUseCase'
 export class AuthenticateUseCase
   implements IAbstractUseCase<IInputAuthenticateDto, IOutputAuthenticateDto>
 {
+  constructor(
+    @inject(IEncryptionServiceToken)
+    private encryptionService: IEncryptionService
+  ) {}
+
   async exec(props: IInputAuthenticateDto): Promise<IOutputAuthenticateDto> {
-    const passwordMatch = await compare(props.password, props.user.password)
+    const passwordMatch = await this.encryptionService.comparePassword(
+      props.password,
+      props.user.password
+    )
 
     if (!passwordMatch) {
       return left(AuthErrors.notAllowed())

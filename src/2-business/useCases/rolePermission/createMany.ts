@@ -62,7 +62,6 @@ export class CreateManyRolePermissionUseCase
 
       return right(rolePermissionsResult)
     } catch (err) {
-      console.log(err)
       this.loggerService.error(err)
       return left(RolePermissionErrors.createManyError())
     }
