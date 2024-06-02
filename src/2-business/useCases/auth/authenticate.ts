@@ -37,12 +37,16 @@ export class AuthenticateUseCase
       expiresIn: process.env.EXPIRES_IN,
     })
 
+    const permissoionsString = props.user.role.permissions
+      ? props.user.role.permissions
+          .map((permission) => permission.name)
+          .join(',')
+      : ''
+
     return right({
       user: {
         ...UserMap.toDtoWithoutPassword(props.user),
-        permissions: props.user.role.permissions
-          .map((permission) => permission.name)
-          .join(','),
+        permissions: permissoionsString,
       },
       token,
     })
