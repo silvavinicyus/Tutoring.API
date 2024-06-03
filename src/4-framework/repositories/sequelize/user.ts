@@ -35,7 +35,7 @@ export class UserRepository implements IUserRepository {
   async delete(props: IInputDeleteUserDto, trx?: ITransaction): Promise<void> {
     await UserModel.destroy({
       where: {
-        id: props.id,
+        user_real_id: props.id,
       },
       transaction: trx,
     })
