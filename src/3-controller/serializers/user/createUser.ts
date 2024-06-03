@@ -4,6 +4,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUUID,
   Length,
@@ -13,23 +14,28 @@ import { AbstractSerializer } from '../abstractSerializer'
 export class InputCreateUser extends AbstractSerializer<IInputCreateUserDto> {
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   name: string
 
   @IsEmail()
   @IsNotEmpty()
+  @IsOptional()
   email: string
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   phone: string
 
   @IsDate()
   @IsNotEmpty()
+  @IsOptional()
   birthdate: Date
 
   @IsString()
   @IsNotEmpty()
   @Length(8)
+  @IsOptional()
   password: string
 
   @IsNumber()
