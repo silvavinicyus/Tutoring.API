@@ -99,6 +99,7 @@
     "serverless-offline-sqs": "^6.0.0",
     "serverless-prune-plugin": "^2.0.1",
     "serverless-webpack": "^5.3.5",
+    "sonar-scanner": "^3.1.0",
     "ts-loader": "^8.0.15",
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
